@@ -1,29 +1,61 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+/**
+ * Created by neha on 4/6/2017.
+ */
 
+import React, { Component } from 'react';
+import './App.css';
+import Search from './Search';
+import Intro from './Intro';
+import Header from './Header';
 
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            destination:{city:'',state:'',country:'',longitude:'',latitude:''}
+        }
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
     componentDidMount() {
       /* global google b:true */
         const input = document.getElementById('autocomplete')
-        this.autocomplete = new google.maps.places.Autocomplete(input, { types: ['geocode'] })
+        let autocomplete = new google.maps.places.Autocomplete(input, { types: ['geocode'] })
+
+        google.maps.event.addListener(autocomplete, 'place_changed', () => {
+            let place = autocomplete.getPlace();
+
+            this.setState({
+                destination:{
+                    city:place.address_components[0].long_name,
+                    state: place.address_components[2].long_name,
+                    country: place.address_components[3].long_name,
+                    longitude:place.geometry.location.lng(),
+                    latitude:place.geometry.location.lat()
+                }
+            })
+
+
+        });
     }
+    onSubmit(e) {
+        e.preventDefault();
+        console.log("you searched" );
+        console.log(this.state.destination);
+    }
+
 
     render() {
         return (
-            <div className="App">
-              <div className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <h2>Welcome to React</h2>
-              </div>
-              <p className="App-intro">
-
-                <input id="autocomplete"/>
-              </p>
+            <div>
+                <div>
+                    <Header/>
+                    <Intro/>
+                    <Search className={'top-margin text-center'}  onSubmit={this.onSubmit}/>
+                </div>
             </div>
-        )
+        );
     }
 }
 export default App;
