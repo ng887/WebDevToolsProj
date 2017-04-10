@@ -9,8 +9,6 @@ import Intro from './Intro';
 import Header from './Header';
 import DateRange from './DateRange';
 
-
-
 class App extends Component {
     constructor(props) {
         super(props);
@@ -41,8 +39,8 @@ class App extends Component {
 
     });
 
-        const dateInput = document.getElementById('daterange');
-        $(dateInput).daterangepicker();
+       // const dateInput = document.getElementById('daterange');
+       // $(dateInput).daterangepicker();
     }
     onSubmit(e) {
         e.preventDefault();
