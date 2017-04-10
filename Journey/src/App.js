@@ -46,8 +46,26 @@ class App extends Component {
         e.preventDefault();
         console.log("you searched" );
         console.log(this.state.destination);
-    }
+        let request = {
+        location: new google.maps.LatLng(this.state.destination.latitude, this.state.destination.longitude),
+        radius: '500',
+        types: ['amusement_park','aquarium','art_gallery','casino','hindu_temple','mosque','museum',
+        'night_club','park','zoo']
+        };
 
+        let searchResults = document.getElementById('placesOfInterest');
+        let service = new google.maps.places.PlacesService(searchResults);
+        service.nearbySearch(request, callback);
+
+        function callback (results,status) {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+
+              for (var i = 0; i < results.length; i++) {
+                  searchResults.innerHTML += results[i].name + '<br />';
+              }
+            }
+        }
+     }
 
     render() {
         return (
@@ -56,7 +74,9 @@ class App extends Component {
             <Header/>
             <Intro/>
             <Search  className={'top-margin text-center'} onSubmit={this.onSubmit}/>
-    <DateRange className={'top-margin text-center'} />
+            <DateRange className={'top-margin text-center'} />
+            <h3>Places of Interests</h3>
+            <div id="placesOfInterest"></div>
             </div>
             </div>
     );
