@@ -7,6 +7,8 @@ import './App.css';
 import Search from './Search';
 import Intro from './Intro';
 import Header from './Header';
+import DateRange from './DateRangePicker';
+
 
 
 class App extends Component {
@@ -19,25 +21,28 @@ class App extends Component {
     }
 
     componentDidMount() {
-      /* global google b:true */
-        const input = document.getElementById('autocomplete')
-        let autocomplete = new google.maps.places.Autocomplete(input, { types: ['geocode'] })
+        /* global google b:true */
+        const placeInput = document.getElementById('autocomplete')
+        let autocomplete = new google.maps.places.Autocomplete(placeInput, { types: ['geocode'] })
 
         google.maps.event.addListener(autocomplete, 'place_changed', () => {
             let place = autocomplete.getPlace();
 
-            this.setState({
-                destination:{
-                    city:place.address_components[0].long_name,
-                    state: place.address_components[2].long_name,
-                    country: place.address_components[3].long_name,
-                    longitude:place.geometry.location.lng(),
-                    latitude:place.geometry.location.lat()
-                }
-            })
+        this.setState({
+            destination:{
+                city:place.address_components[0].long_name,
+                state: place.address_components[2].long_name,
+                country: place.address_components[3].long_name,
+                longitude:place.geometry.location.lng(),
+                latitude:place.geometry.location.lat()
+            }
+        })
 
 
-        });
+    });
+
+        const dateInput = document.getElementById('daterange');
+        $(dateInput).daterangepicker();
     }
     onSubmit(e) {
         e.preventDefault();
@@ -49,13 +54,14 @@ class App extends Component {
     render() {
         return (
             <div>
-                <div>
-                    <Header/>
-                    <Intro/>
-                    <Search className={'top-margin text-center'}  onSubmit={this.onSubmit}/>
-                </div>
+            <div>
+            <Header/>
+            <Intro/>
+            <Search  className={'top-margin text-center'} onSubmit={this.onSubmit}/>
+    <DateRange className={'top-margin text-center'} />
             </div>
-        );
+            </div>
+    );
     }
 }
 export default App;

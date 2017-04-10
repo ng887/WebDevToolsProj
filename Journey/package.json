@@ -1,6 +1,9 @@
 {
   "name": "Journey",
   "version": "0.1.0",
+  "env": {
+    "jquery" : true
+  },
   "private": true,
   "dependencies": {
     "react": "15.4.2",
