@@ -7,9 +7,8 @@ import './App.css';
 import Search from './Search';
 import Intro from './Intro';
 import Header from './Header';
-import DateRange from './DateRangePicker';
-
-
+import DateRange from './DateRange';
+import $ from "jquery";
 
 class App extends Component {
     constructor(props) {
@@ -41,8 +40,8 @@ class App extends Component {
 
     });
 
-        const dateInput = document.getElementById('daterange');
-        $(dateInput).daterangepicker();
+       const dateInput = document.getElementById('daterange');
+       $(dateInput).daterangepicker();
     }
     onSubmit(e) {
         e.preventDefault();
@@ -58,7 +57,7 @@ class App extends Component {
             <Header/>
             <Intro/>
             <Search  className={'top-margin text-center'} onSubmit={this.onSubmit}/>
-    <DateRange className={'top-margin text-center'} />
+            <DateRange  className={'top-margin text-center'} />
             </div>
             </div>
     );
