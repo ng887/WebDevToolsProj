@@ -7,7 +7,7 @@ import './App.css';
 import Search from './Search';
 import Intro from './Intro';
 import Header from './Header';
-import DateRange from './DateRangePicker';
+import DateRange from './DateRange';
 
 
 
