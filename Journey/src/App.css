@@ -22,3 +22,51 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.top-margin{
+  margin-top: 5%;
+}
+
+.top-margin-small{
+  margin-top: 1%;
+}
+
+.no-right-padding{
+  padding-right:0!important;
+}
+.j-card {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.text-xxxlarge {
+  font-size: 32px !important;
+}
+
+.j-button {
+  border: none;
+  display: inline-block;
+  outline: 0;
+  padding: 10px 16px;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background-color: inherit;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  font-weight: lighter;
+}
+.j-button:hover {
+  color: #000 !important;
+  background-color: #ccc !important;
+}
+.j-button-small {
+  width: 30%;
+}
+
+
+.desktopLayout {
+  display: flex;
+  flex-direction: row;
+}
