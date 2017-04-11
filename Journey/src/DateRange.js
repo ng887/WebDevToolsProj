@@ -5,7 +5,7 @@ import React from 'react';
 
 const DateRange = () => {
     return (
-        <div><input id='daterange' /></div>
+        <div><input className="form-control" id='daterange' /></div>
 );
 }
 

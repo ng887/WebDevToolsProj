@@ -4,20 +4,11 @@
 
 import React from 'react';
 
-const Search = ({
-
-                    onSubmit,
-                    className,
-
-
-                }) => {
-
-
+const Search = () => {
     return (
-        <form className={className}>
-             <input id='autocomplete' placeholder="Enter your destination"></input>
-             <button onClick={onSubmit}> Search </button>
-        </form>
+        <div>
+             <input className="form-control" id='autocomplete' placeholder="Enter your destination"></input>
+        </div>
     )
 }
 
