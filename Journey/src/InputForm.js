@@ -80,6 +80,7 @@ export default class InputForm extends Component {
                 </form>
                  <h3 style={{marginLeft:600}}>Places of Interests</h3>
                 <div id="placesOfInterest" style={{marginLeft:600}}></div>
+                <Card noOfDays={this.state.noOfDays}/>
             </div>
         );
     }
