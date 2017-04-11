@@ -42,6 +42,7 @@ export default class InputForm extends Component{
         console.log(this.state.destination);
         console.log(localStorage.getItem('startDate'));
         console.log(localStorage.getItem('endDate'));
+
     }
     render() {
         return (
