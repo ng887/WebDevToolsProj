@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import Search from './Search';
 import DateRange from './DateRange';
 import { Button } from 'react-bootstrap';
+import {calculateDays} from './CalculateDays';
 
 export default class InputForm extends Component {
     constructor(props) {
@@ -42,6 +43,8 @@ export default class InputForm extends Component {
         console.log(this.state.destination);
         console.log(localStorage.getItem('startDate'));
         console.log(localStorage.getItem('endDate'));
+        const noOfDays = calculateDays(localStorage.getItem('startDate'), localStorage.getItem('endDate'));
+        console.log("No of days" + noOfDays);
         let request = {
             location: new google.maps.LatLng(this.state.destination.latitude, this.state.destination.longitude),
             radius: '500',
