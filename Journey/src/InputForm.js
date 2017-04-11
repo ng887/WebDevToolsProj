@@ -6,13 +6,15 @@ import Search from './Search';
 import DateRange from './DateRange';
 import { Button } from 'react-bootstrap';
 import {calculateDays} from './CalculateDays';
+import Card from './Card';
 
 export default class InputForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             destination: { city: '', state: '', country: '', longitude: '', latitude: '' },
-            noOfDays: ''
+            noOfDays: '',
+            pointsOfInterest: ''
         }
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -45,27 +47,35 @@ export default class InputForm extends Component {
         console.log(localStorage.getItem('startDate'));
         console.log(localStorage.getItem('endDate'));
         const noOfDays = calculateDays(localStorage.getItem('startDate'), localStorage.getItem('endDate'));
-        this.setState({noOfDays: noOfDays})
+        this.setState({noOfDays: noOfDays});
         let request = {
             location: new google.maps.LatLng(this.state.destination.latitude, this.state.destination.longitude),
-            radius: '500',
+            radius: '5000',
             types: ['amusement_park', 'aquarium', 'art_gallery', 'casino', 'hindu_temple', 'mosque', 'museum',
                 'night_club', 'park', 'zoo'
             ]
         };
 
-        let searchResults = document.getElementById('placesOfInterest');
+        let searchResults = document.getElementById('test');
         let service = new google.maps.places.PlacesService(searchResults);
-        service.nearbySearch(request, callback);
-
-        function callback(results, status) {
+        service.nearbySearch(request, (results, status) => {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
-
-                for (var i = 0; i < results.length; i++) {
-                    searchResults.innerHTML += results[i].opening_hours + '<br />';
-                }
+                /**for (var i = 0; i < results.length; i++) {
+                    searchResults.innerHTML += results[i].name + '<br />';
+                }*/
+                this.setState({pointsOfInterest: results});
             }
-        }
+        });
+        /**
+        callback((results, status)  =>  {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                /**for (var i = 0; i < results.length; i++) {
+                    searchResults.innerHTML += results[i].name + '<br />';
+                }
+                this.setState({pointsOfInterest: results})
+            }
+        });*/
+
     }
 
 
@@ -76,11 +86,8 @@ export default class InputForm extends Component {
                 <div className={'col-md-3 col-md-offset-2'}><Search /></div>
                  <div className={'col-md-3'}><DateRange /></div>
                     <Button className={'col-md-2 btn-primary'} onClick={this.onSubmit}>Search</Button>
-
                 </form>
-                 <h3 style={{marginLeft:600}}>Places of Interests</h3>
-                <div id="placesOfInterest" style={{marginLeft:600}}></div>
-                <Card noOfDays={this.state.noOfDays}/>
+                <Card pointsOfInterest={this.state.pointsOfInterest} noOfDays={this.state.noOfDays}/>
             </div>
         );
     }
