@@ -11,7 +11,8 @@ export default class InputForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            destination: { city: '', state: '', country: '', longitude: '', latitude: '' }
+            destination: { city: '', state: '', country: '', longitude: '', latitude: '' },
+            noOfDays: ''
         }
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -44,7 +45,7 @@ export default class InputForm extends Component {
         console.log(localStorage.getItem('startDate'));
         console.log(localStorage.getItem('endDate'));
         const noOfDays = calculateDays(localStorage.getItem('startDate'), localStorage.getItem('endDate'));
-        console.log("No of days" + noOfDays);
+        this.setState({noOfDays: noOfDays})
         let request = {
             location: new google.maps.LatLng(this.state.destination.latitude, this.state.destination.longitude),
             radius: '500',
