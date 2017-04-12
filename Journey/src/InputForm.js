@@ -6,7 +6,7 @@ import Search from './Search';
 import DateRange from './DateRange';
 import { Button } from 'react-bootstrap';
 import {calculateDays} from './CalculateDays';
-import Card from './Card';
+import CardContainer from './CardContainer';
 
 export default class InputForm extends Component {
     constructor(props) {
@@ -42,21 +42,17 @@ export default class InputForm extends Component {
     }
     onSubmit(e) {
         e.preventDefault();
-        console.log("you searched");
-        console.log(this.state.destination);
-        console.log(localStorage.getItem('startDate'));
-        console.log(localStorage.getItem('endDate'));
         const noOfDays = calculateDays(localStorage.getItem('startDate'), localStorage.getItem('endDate'));
         this.setState({noOfDays: noOfDays});
         let request = {
             location: new google.maps.LatLng(this.state.destination.latitude, this.state.destination.longitude),
             radius: '5000',
             types: ['amusement_park', 'aquarium', 'art_gallery', 'casino', 'hindu_temple', 'mosque', 'museum',
-                'night_club', 'park', 'zoo'
+                'park', 'zoo'
             ]
         };
 
-        let searchResults = document.getElementById('test');
+        let searchResults = document.getElementById('placeHolder');
         let service = new google.maps.places.PlacesService(searchResults);
         service.nearbySearch(request, (results, status) => {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -87,7 +83,8 @@ export default class InputForm extends Component {
                  <div className={'col-md-3'}><DateRange /></div>
                     <Button className={'col-md-2 btn-primary'} onClick={this.onSubmit}>Search</Button>
                 </form>
-                <Card pointsOfInterest={this.state.pointsOfInterest} noOfDays={this.state.noOfDays}/>
+                <div id="placeHolder"></div>
+                <CardContainer pointsOfInterest={this.state.pointsOfInterest} noOfDays={this.state.noOfDays}/>
             </div>
         );
     }
