@@ -84,7 +84,7 @@ export default class InputForm extends Component {
                  <div className={'col-md-3'}><DateRange /></div>
                     <Button className={'col-md-2 btn-primary'} onClick={this.onSubmit}>Search</Button>
                 </form>
-                <div id="placeHolder"></div>
+               
                 <Card pointsOfInterest={this.state.pointsOfInterest} noOfDays={this.state.noOfDays}/>
             </div>
         );
