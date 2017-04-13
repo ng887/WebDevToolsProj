@@ -1,41 +1,44 @@
-import React from 'react';
-import Card from './Card';
+import React, {Component} from 'react';
+import Card from './AddedCard';
 
-const CardContainer = ({
-    noOfDays,
-    pointsOfInterest
-}) => {
+class CardContainer extends Component {
 
-    console.log(pointsOfInterest);
-    const tempDiv = [];
-    /*if(pointsOfInterest) {
-     //  console.log(pointsOfInterest.length);
-     // console.log(noOfDays);
-      //}*/
-    let j = 0;
-    for (let i = 0; i < noOfDays; i++) {
-        if (!pointsOfInterest[j]) {
-            tempDiv.push(
-                <div className='card' key={i+1}>
-            <p> Sorry there are no other prominent places suggestions for the day. </p>
-            </div>
-            )
-        } else {
-            tempDiv.push(
-                <div className='card' key={i}>
-                  <Card pointsOfInterest={pointsOfInterest[j]} i={j}/>
-                  <Card pointsOfInterest={pointsOfInterest[j+1]} i={j+1}/>
-                  <Card pointsOfInterest={pointsOfInterest[j+2]} i={j+2}/>          
-              </div>
-            );
+    constructor(props) {
+        super(props);
+        this.state = {
+            days: [],
+            activeDay: 1,
         }
-        j += 3;
+        //  this.activateDay = this.activateDay.bind(this);
     }
 
-    return (
-      <div>
-          {tempDiv}
-      </div>
-    )
+    activateDay(e) {
+       this.props.getActiveDay(e.target.id);
+    }
+
+    render() {
+        const noOfDays = this.props.noOfDays;
+        const bismillah = this.props.locationOnDay;
+        bismillah.map((e) => {
+            console.log(e);
+        })
+        const tempDiv = [];
+
+        for (let i = 1; i <= noOfDays; i++) {
+                tempDiv.push(
+                    <div onClick={(e) => this.activateDay(e)} id={i} className='card' key={i}>
+                      
+                    </div>
+                );
+        }
+
+        return (
+            <div>
+                {tempDiv}
+            </div>
+        )
+    }
+
 }
+
 export default CardContainer;
