@@ -42,6 +42,10 @@
   font-size: 32px !important;
 }
 
+.text-center{
+  text-align: center;
+}
+
 .j-button {
   border: none;
   display: inline-block;
@@ -69,6 +73,7 @@
 .desktopLayout {
   display: flex;
   flex-direction: row;
+
 }
 
 .col-md-3 {
@@ -80,10 +85,16 @@
 .card{
   margin: 5% 4%;
   box-shadow: 10px 10px 5px #888888;
-
   border: 1px solid rgba(0,0,0,.125);
   border-radius: .25rem;
   min-width: 26%;
   /* max-width: 35%; */
-  height: 100%;
+  height: 50%;
+  width: 50%;
+  padding:5%
 }
+
+.wideImg{
+  width:100%;
+}
+
