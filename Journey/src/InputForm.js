@@ -1,12 +1,10 @@
-/**
- * Created by khutaijashariff on 4/10/17.
- */
 import React, { Component } from 'react';
 import Search from './Search';
 import DateRange from './DateRange';
 import { Button } from 'react-bootstrap';
 import {calculateDays} from './CalculateDays';
-import Card from './Card';
+import Cards from './Cards';
+import CardContainer from './CardContainer';
 
 export default class InputForm extends Component {
     constructor(props) {
@@ -78,15 +76,20 @@ export default class InputForm extends Component {
 
     render() {
         return (
+           <div> 
             <div>
-                <form  className={'top-margin text-center'}>
+                <form className={'top-margin text-center'}>
                 <div className={'col-md-3 col-md-offset-2'}><Search /></div>
                  <div className={'col-md-3'}><DateRange /></div>
                     <Button className={'col-md-2 btn-primary'} onClick={this.onSubmit}>Search</Button>
                 </form>
-               
-                <Card pointsOfInterest={this.state.pointsOfInterest} noOfDays={this.state.noOfDays}/>
+                <br/>                
             </div>
+            <div>
+                <Cards pointsOfInterest={this.state.pointsOfInterest}/>
+                <CardContainer pointsOfInterest={this.state.pointsOfInterest} noOfDays={this.state.noOfDays}/>
+            </div> 
+           </div>    
         );
     }
 }
