@@ -19,7 +19,7 @@ export default class InputForm extends Component {
             renderCardContainer: false,
             currentAddedLocation: '',
             currentActiveDay: "1",
-            locationOnDay: []
+            locationOnDay: {}
         }
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -86,7 +86,7 @@ export default class InputForm extends Component {
     getCurrentClickedLocation(location) {
        this.setState({
            currentAddedLocation: location,
-           locationOnDay: [...this.state.locationOnDay, {day: this.state.currentActiveDay, location: location}]
+           locationOnDay: {day: this.state.currentActiveDay, location: location}
        })
     }
 
@@ -109,7 +109,7 @@ export default class InputForm extends Component {
             </div>
             <div>
                 <Cards getPassedLocation={this.getCurrentClickedLocation.bind(this)} pointsOfInterest={this.state.pointsOfInterest}/>
-                {this.state.renderCardContainer && <CardContainer getActiveDay={this.getActiveDay.bind(this)} locationOnDay={this.state.locationOnDay} pointsOfInterest={this.state.pointsOfInterest} noOfDays={this.state.noOfDays}/>}
+                {this.state.renderCardContainer && <CardContainer getActiveDay={this.getActiveDay.bind(this)} deactivateLocation={this.getCurrentClickedLocation.bind(this)} locationOnDay={this.state.locationOnDay} pointsOfInterest={this.state.pointsOfInterest} noOfDays={this.state.noOfDays}/>}
             </div> 
            </div>    
         );
