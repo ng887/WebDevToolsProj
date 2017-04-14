@@ -3,12 +3,15 @@
  */
 export function getLocationForDays(day, locationsOnDay) {
     let resultLocations = [];
-    //console.log(locationsOnDay);
-    locationsOnDay.map( (entry)=> {
-        if(entry.day === day) {
-            resultLocations.push(locationsOnDay.location);
+    if (locationsOnDay.length === 0) {
+        return resultLocations;
+    } else {
+        for (let i = 0; i < locationsOnDay.length; i++) {
+            if ( locationsOnDay[i].location != 'deactivated'  && locationsOnDay[i].day == day) { //strict comparision ===
+                resultLocations.push(locationsOnDay[i]);
+            }
+
         }
-    });
-    console.log(resultLocations);
-    return resultLocations;
+        return resultLocations;
+    }
 }
