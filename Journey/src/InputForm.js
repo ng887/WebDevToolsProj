@@ -14,7 +14,7 @@ export default class InputForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            destination: {city: '', state: '', country: '', longitude: '', latitude: '', currentTemp:0.0},
+            destination: {city: '', state: '', country: '', longitude: '', latitude: ''},
             noOfDays: '',
             pointsOfInterest: '',
             renderCardContainer: false,
@@ -24,7 +24,7 @@ export default class InputForm extends Component {
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.fetchWeatherDetails = this.fetchWeatherDetails.bind(this);
-        this.fetchFlightDetails = this.fetchFlightDetails.bind(this);
+        
     }
 
     componentDidMount() {
@@ -50,7 +50,8 @@ export default class InputForm extends Component {
     }
     onSubmit(e) {
         e.preventDefault();
-
+        this.fetchWeatherDetails(this.state.destination.city);
+        this.fetchFlightDetails();
         const noOfDays = calculateDays(localStorage.getItem('startDate'), localStorage.getItem('endDate'));
         this.setState({noOfDays: noOfDays});
 
@@ -72,8 +73,7 @@ export default class InputForm extends Component {
         this.setState({
             renderCardContainer: true
         })
-        this.fetchWeatherDetails(this.state.destination.city);
-        this.fetchFlightDetails();
+      
     }
 
 
@@ -149,9 +149,14 @@ export default class InputForm extends Component {
                 <br/>                
             </div>
             <div>
-                <Cards getPassedLocation={this.getCurrentClickedLocation.bind(this)} pointsOfInterest={this.state.pointsOfInterest}/>
-                {this.state.renderCardContainer && <CardContainer getActiveDay={this.getActiveDay.bind(this)} deactivateLocation={this.getCurrentClickedLocation.bind(this)} locationOnDay={this.state.locationOnDay} pointsOfInterest={this.state.pointsOfInterest} noOfDays={this.state.noOfDays}/>}
                 <DestinationWeather destination={this.state.destination} destinationCurTemp={this.state.destination.currentTemp} destinationWeatherForecast ={this.state.destinationWeather} />
+                <Cards getPassedLocation={this.getCurrentClickedLocation.bind(this)} pointsOfInterest={this.state.pointsOfInterest}/>
+                {this.state.renderCardContainer && <CardContainer getActiveDay={this.getActiveDay.bind(this)} 
+                deactivateLocation={this.getCurrentClickedLocation.bind(this)} 
+                locationOnDay={this.state.locationOnDay}
+                pointsOfInterest={this.state.pointsOfInterest} 
+                noOfDays={this.state.noOfDays}/>}
+
             </div>
            </div>    
         );
