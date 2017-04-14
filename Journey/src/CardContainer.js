@@ -1,41 +1,62 @@
-import React from 'react';
-import Card from './Card';
+import React, {Component} from 'react';
+import {getLocationForDays} from './GetLocationsForDays';
 
-const CardContainer = ({
-    noOfDays,
-    pointsOfInterest
-}) => {
+class CardContainer extends Component {
 
-    console.log(pointsOfInterest);
-    const tempDiv = [];
-    /*if(pointsOfInterest) {
-     //  console.log(pointsOfInterest.length);
-     // console.log(noOfDays);
-      //}*/
-    let j = 0;
-    for (let i = 0; i < noOfDays; i++) {
-        if (!pointsOfInterest[j]) {
-            tempDiv.push(
-                <div className='card' key={i+1}>
-            <p> Sorry there are no other prominent places suggestions for the day. </p>
-            </div>
-            )
-        } else {
-            tempDiv.push(
-                <div className='card' key={i}>
-                  <Card pointsOfInterest={pointsOfInterest[j]} i={j}/>
-                  <Card pointsOfInterest={pointsOfInterest[j+1]} i={j+1}/>
-                  <Card pointsOfInterest={pointsOfInterest[j+2]} i={j+2}/>          
-              </div>
-            );
+    constructor(props) {
+        super(props);
+        this.state = {
+            locationOnDay: []
         }
-        j += 3;
     }
 
-    return (
-      <div>
-          {tempDiv}
-      </div>
-    )
+    activateDay(e) {
+        this.props.getActiveDay(e.target.id);
+        this.props.deactivateLocation('deactivated');
+    }
+
+
+    render() {
+        const noOfDays = this.props.noOfDays;
+        const locationOnDay = this.state.locationOnDay;
+        const tempDiv = [];
+        for (let i = 1; i <= noOfDays; i++) {
+            tempDiv.push(
+                <div onClick={(e) => this.activateDay(e)} id={i} className='card' key={i}>
+                    <div style={{border: 'solid 1px', backgroundColor: 'lightblue'}}>Day {i}</div>
+                </div>
+            );
+        }
+        for (let i = 1; i <= noOfDays; i++) {
+            let currentLocations = getLocationForDays(i, this.state.locationOnDay);
+            if (document.getElementById(i) !== undefined && currentLocations.length !== 0) {
+                let currentDay = document.getElementById(i);
+                currentDay.innerHTML = '';
+                currentLocations.map((entry) => {
+                    console.log(entry);
+                    let newDiv = document.createElement('div');
+                    let newContent = document.createTextNode(entry.location.name);
+                    newDiv.appendChild(newContent);
+                    currentDay.appendChild(newDiv);
+                })
+            }
+        }
+
+        return (
+            <div>
+                {tempDiv}
+            </div>
+        )
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            locationOnDay: nextProps.locationOnDay
+        })
+
+    }
+
+
 }
+
 export default CardContainer;
