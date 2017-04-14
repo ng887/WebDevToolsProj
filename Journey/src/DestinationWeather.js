@@ -9,14 +9,15 @@ const DestinationWeather = ({
 	destinationWeatherForecast,
 	destination
 }) => {
-	console.log(destinationWeatherForecast)
-	console.log(destinationWeatherForecast.weather)
-	console.log(destination)
+	//console.log(destinationWeatherForecast)
+	//console.log(destinationWeatherForecast.weather)
+	//console.log(destination)
 
 	const CurWeatherDetails=[];
-	if(destinationWeatherForecast.weather !== undefined){
+	if(destinationWeatherForecast!== undefined){
+		if(destinationWeatherForecast.weather!== undefined){
 		 CurWeatherDetails.push(
-                <div className='card text-center'>
+                <div className='card text-center' key='destinationWeather'>
 	                 <b>{destination.city}</b>
 	                <img src={"http://openweathermap.org/img/w/"+destinationWeatherForecast.weather[0].icon+".png"}  alt="weather_icon" /> 
 	                <b> {destinationWeatherForecast.weather[0].description} </b>
@@ -26,7 +27,9 @@ const DestinationWeather = ({
 	                
                 </div>
              )
-	}
+         	}
+		}
+	
     return (
       <div>
         	{CurWeatherDetails}
