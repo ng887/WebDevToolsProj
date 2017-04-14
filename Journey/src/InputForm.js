@@ -8,12 +8,13 @@ import { Button } from 'react-bootstrap';
 import {calculateDays} from './CalculateDays';
 import Cards from './Cards';
 import CardContainer from './CardContainer';
+import DestinationWeather from './DestinationWeather';
 
 export default class InputForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            destination: {city: '', state: '', country: '', longitude: '', latitude: ''},
+            destination: {city: '', state: '', country: '', longitude: '', latitude: '', currentTemp:0.0},
             noOfDays: '',
             pointsOfInterest: '',
             renderCardContainer: false,
@@ -22,6 +23,8 @@ export default class InputForm extends Component {
             locationOnDay: []
         }
         this.onSubmit = this.onSubmit.bind(this);
+        this.fetchWeatherDetails = this.fetchWeatherDetails.bind(this);
+        this.fetchFlightDetails = this.fetchFlightDetails.bind(this);
     }
 
     componentDidMount() {
@@ -63,24 +66,60 @@ export default class InputForm extends Component {
         let service = new google.maps.places.PlacesService(searchResults);
         service.nearbySearch(request, (results, status) => {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
-                /**for (var i = 0; i < results.length; i++) {
-                    searchResults.innerHTML += results[i].name + '<br />';
-                }*/
                 this.setState({pointsOfInterest: results});
             }
         });
-        /**
-        callback((results, status)  =>  {
-            if (status === google.maps.places.PlacesServiceStatus.OK) {
-                /**for (var i = 0; i < results.length; i++) {
-                    searchResults.innerHTML += results[i].name + '<br />';
-                }
-                this.setState({pointsOfInterest: results})
-            }
-        });*/
         this.setState({
             renderCardContainer: true
         })
+        this.fetchWeatherDetails(this.state.destination.city);
+        this.fetchFlightDetails();
+    }
+
+
+    fetchWeatherDetails(city) {
+        const api_key = '6ab73f3655f1a0db55237e9f5b00bff9';
+        const root_url = `http://api.openweathermap.org/data/2.5/forecast?appid=${api_key}`;
+
+        const url = `${root_url}&q=${city},us`;
+        console.log(url);
+        fetch(url)
+            .then((res) => {
+                console.log(res);
+                return res.json();
+                // const data = this.state.weather;
+                // this.setState({ weather: data.concat([res.data])});
+            })
+            .then((json) => {
+                //console.log(json);
+                //console.log('City Name: '+ json.city.name);
+                //console.log(json.list[0]);
+                //console.log('Current Temp: '+ parseInt(json.list[0].main.temp - 273.15) + ' degree C');
+                const currentTemp = parseInt(json.list[0].main.temp - 273.15);
+                this.setState({  destination: {
+                    currentTemp:currentTemp },
+                    destinationWeather:json.list[0]
+                });
+
+            });
+    }
+
+    fetchFlightDetails() {
+        const api_key = 'no883655154989405407520801242418';
+        const params = 'FR/eur/en-us/uk/us/anytime/anytime'
+
+        const root_url = `http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/${params}?apikey=${api_key}`;
+
+        fetch(root_url)
+            .then((res) => {
+                console.log(res);
+                return res.json();
+            })
+            .then((json) => {console.log(json);})
+
+            .catch(function(error) {
+                console.log('Request failure: ', error);
+            });
 
     }
 
@@ -112,7 +151,8 @@ export default class InputForm extends Component {
             <div>
                 <Cards getPassedLocation={this.getCurrentClickedLocation.bind(this)} pointsOfInterest={this.state.pointsOfInterest}/>
                 {this.state.renderCardContainer && <CardContainer getActiveDay={this.getActiveDay.bind(this)} deactivateLocation={this.getCurrentClickedLocation.bind(this)} locationOnDay={this.state.locationOnDay} pointsOfInterest={this.state.pointsOfInterest} noOfDays={this.state.noOfDays}/>}
-            </div> 
+                <DestinationWeather destination={this.state.destination} destinationCurTemp={this.state.destination.currentTemp} destinationWeatherForecast ={this.state.destinationWeather} />
+            </div>
            </div>    
         );
     }
