@@ -29,13 +29,8 @@ const DestinationWeather = ({
 	}
     return (
       <div>
-
         	{CurWeatherDetails}
-     </div>       
-
-           
-
-       
+     </div>
     )
 }
 export default DestinationWeather;
