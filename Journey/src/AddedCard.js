@@ -4,12 +4,44 @@
 
 import React from 'react';
 import noImg from './images/No_image_available.jpg';
-import { Button } from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 
-const Card = ({
-    pointsOfInterest,
-    i
+export default class AddedCard {
+    //get day from passed location when passed
+    removeLocation(location) {
+
+    }
+
+    render() {
+        //will be passed object with location and day
+        let pointOfInterest = this.props.pointOfInterest;
+        let photoUrl;
+        if (pointOfInterest) {
+            if (pointOfInterest.photos) {
+                photoUrl = pointOfInterest.photos[0].getUrl({maxWidth: 640});
+            }
+            else {
+                photoUrl = noImg;
+            }
+            return (
+                <div className='card text-center' key={pointOfInterest.placeId}>
+                    <div><b> {pointOfInterest.name}</b></div>
+                    <br/>
+                    <div><img src={photoUrl} alt={pointOfInterest.name} className="wideImg"/></div>
+                    <Button type="button" onClick={this.removeLocation.bind(this, pointOfInterest)}
+                            className="btn btn-info">Remove</Button>
+                </div>
+            )
+        } else {
+            return (<div></div>);
+        }
+    }
+}
+
+/**
+ const Card = ({
+    pointsOfInterest
 }) => {
     let photoUrl;
     if(pointsOfInterest) {
@@ -20,7 +52,7 @@ const Card = ({
             photoUrl = noImg;
         }
         return (
-            <div className='card text-center' key={i}>
+            <div className='card text-center' key={pointsOfInterest.placeId}>
                 <div> <b> {pointsOfInterest.name}</b></div><br/>
                 <div><img src={photoUrl} alt={pointsOfInterest.name} className="wideImg"/></div>
                 <Button type="button"  className="btn btn-info">Remove</Button>
@@ -30,4 +62,5 @@ const Card = ({
         return (<div></div>);
     }
 }
-export default Card;
+ export default Card;
+ */

@@ -13,13 +13,13 @@ export default class InputForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            destination: { city: '', state: '', country: '', longitude: '', latitude: '' },
+            destination: {city: '', state: '', country: '', longitude: '', latitude: ''},
             noOfDays: '',
             pointsOfInterest: '',
             renderCardContainer: false,
             currentAddedLocation: '',
             currentActiveDay: "1",
-            locationOnDay: {}
+            locationOnDay: []
         }
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -50,6 +50,7 @@ export default class InputForm extends Component {
 
         const noOfDays = calculateDays(localStorage.getItem('startDate'), localStorage.getItem('endDate'));
         this.setState({noOfDays: noOfDays});
+
         let request = {
             location: new google.maps.LatLng(this.state.destination.latitude, this.state.destination.longitude),
             radius: '5000',
@@ -86,7 +87,8 @@ export default class InputForm extends Component {
     getCurrentClickedLocation(location) {
        this.setState({
            currentAddedLocation: location,
-           locationOnDay: {day: this.state.currentActiveDay, location: location}
+           //locationOnDay: [...this.state.locationOnDay, {day: this.state.currentActiveDay, location: location}]
+           locationOnDay: [...this.state.locationOnDay, {location: location, day: this.state.currentActiveDay}]
        })
     }
 
