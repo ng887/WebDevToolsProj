@@ -1,11 +1,12 @@
 /**
- * Created by neha on 4/9/2017.
+ * Created by neha on 4/13/2017.
  */
 
 import React from 'react';
+import CurrentWeather from './CurrentWeather';
+import WeekWeatherForecast from './WeekWeatherForecast';
 
-const DestinationWeather = ({
-	destinationCurTemp,
+const DestinationWeather = ({	
 	destinationWeatherForecast,
 	destination
 }) => {
@@ -13,26 +14,15 @@ const DestinationWeather = ({
 	//console.log(destinationWeatherForecast.weather)
 	//console.log(destination)
 
-	const CurWeatherDetails=[];
-	if(destinationWeatherForecast!== undefined){
-		if(destinationWeatherForecast.weather!== undefined){
-		 CurWeatherDetails.push(
-                <div className='card text-center' key='destinationWeather'>
-	                 <b>{destination.city}</b>
-	                <img src={"http://openweathermap.org/img/w/"+destinationWeatherForecast.weather[0].icon+".png"}  alt="weather_icon" /> 
-	                <b> {destinationWeatherForecast.weather[0].description} </b>
-	                <span>{destinationCurTemp}˚C</span>  <br/>
-	             	<span><b>Wind Direction: </b>{destinationWeatherForecast.wind.deg}</span>
-	                <span><b>  Wind Speed: </b>{destinationWeatherForecast.wind.speed}</span> 
-	                
-                </div>
-             )
-         	}
-		}
+	const todayWeather = destinationWeatherForecast[0];
+	//console.log(todayWeather);
+
 	
     return (
       <div>
-        	{CurWeatherDetails}
+        	{todayWeather !== undefined &&  todayWeather.weather!== undefined && <CurrentWeather todayWeather ={todayWeather} destination={destination}/>}
+        	
+        	{destinationWeatherForecast !== undefined && <WeekWeatherForecast destinationWeatherForecast = {destinationWeatherForecast}/>}
      </div>
     )
 }
