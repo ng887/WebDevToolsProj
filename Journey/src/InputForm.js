@@ -98,7 +98,7 @@ export default class InputForm extends Component {
                 const currentTemp = parseInt(json.list[0].main.temp - 273.15);
                 this.setState({  destination: {
                     currentTemp:currentTemp },
-                    destinationWeather:json.list[0]
+                    destinationWeather:json.list
                 });
 
             });
@@ -149,7 +149,7 @@ export default class InputForm extends Component {
                 <br/>                
             </div>
             <div>
-                <DestinationWeather destination={this.state.destination} destinationCurTemp={this.state.destination.currentTemp} destinationWeatherForecast ={this.state.destinationWeather} />
+                <DestinationWeather destination={this.state.destination} destinationWeatherForecast ={this.state.destinationWeather} />
                 <Cards getPassedLocation={this.getCurrentClickedLocation.bind(this)} pointsOfInterest={this.state.pointsOfInterest}/>
                 {this.state.renderCardContainer && <CardContainer getActiveDay={this.getActiveDay.bind(this)} 
                 deactivateLocation={this.getCurrentClickedLocation.bind(this)} 
