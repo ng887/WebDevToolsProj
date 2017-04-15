@@ -14,7 +14,10 @@ const DestinationWeather = ({
 	//console.log(destinationWeatherForecast.weather)
 	//console.log(destination)
 
-	const todayWeather = destinationWeatherForecast[0];
+	
+		const todayWeather = destinationWeatherForecast[0];
+	
+	
 	//console.log(todayWeather);
 
 	

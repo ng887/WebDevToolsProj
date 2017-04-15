@@ -1,6 +1,7 @@
 /**
  * Created by khutaijashariff on 4/7/17.
  */
+
 import React, { Component } from 'react';
 import Search from './Search';
 import DateRange from './DateRange';
@@ -20,7 +21,8 @@ export default class InputForm extends Component {
             renderCardContainer: false,
             currentAddedLocation: '',
             currentActiveDay: "1",
-            locationOnDay: []
+            locationOnDay: [],
+            destinationWeather:[]
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.fetchWeatherDetails = this.fetchWeatherDetails.bind(this);
@@ -95,10 +97,9 @@ export default class InputForm extends Component {
                 //console.log('City Name: '+ json.city.name);
                 //console.log(json.list[0]);
                 //console.log('Current Temp: '+ parseInt(json.list[0].main.temp - 273.15) + ' degree C');
-                const currentTemp = parseInt(json.list[0].main.temp - 273.15);
-                this.setState({  destination: {
-                    currentTemp:currentTemp },
-                    destinationWeather:json.list[0]
+                //const currentTemp = parseInt(json.list[0].main.temp - 273.15);
+                this.setState({
+                      destinationWeather:json.list
                 });
 
             });
@@ -106,19 +107,29 @@ export default class InputForm extends Component {
 
     fetchFlightDetails() {
         const api_key = 'no883655154989405407520801242418';
-        const params = 'FR/eur/en-us/uk/us/anytime/anytime'
+        const params = 'FR/eur/en-us/uk/us/anytime/anytime';
+        const currency='usd';
+        const locale = 'en-us';
+        const originPlace = 'RDM';
+        const destinationPlace = `${this.state.destination.latitude},${this.state.destination.longitude}-latlong`;
+        console.log(destinationPlace);
 
         const root_url = `http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/${params}?apikey=${api_key}`;
+       // const root_url = `http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/{this.destination.state.country}/{currency}/{locale}/{originPlace}/{this.destination.city}/{outboundPartialDate}/{inboundPartialDate}?apikey=${api_key}`;
+        //browsedates/v1.0/{country}/{currency}/{locale}/{originPlace}/{destinationPlace}/{outboundPartialDate}/{inboundPartialDate}
+
 
         fetch(root_url)
             .then((res) => {
-                console.log(res);
+                //console.log(res);
                 return res.json();
             })
-            .then((json) => {console.log(json);})
+            .then((json) => {
+                //console.log(json);
+            })
 
             .catch(function(error) {
-                console.log('Request failure: ', error);
+               // console.log('Request failure: ', error);
             });
 
     }
@@ -140,16 +151,16 @@ export default class InputForm extends Component {
     render() {
         return (
            <div> 
-            <div>
+           {this.state.renderCardContainer ||   <div>
                 <form className={'top-margin text-center'}>
                 <div className={'col-md-3 col-md-offset-2'}><Search /></div>
                  <div className={'col-md-3'}><DateRange /></div>
-                    <Button className={'col-md-2 btn-info'} onClick={this.onSubmit}>Search</Button>
+                  <Button className={'col-md-2 btn-info'} onClick={this.onSubmit}>Search</Button>
                 </form>
                 <br/>                
-            </div>
+            </div>}
             <div>
-                <DestinationWeather destination={this.state.destination} destinationCurTemp={this.state.destination.currentTemp} destinationWeatherForecast ={this.state.destinationWeather} />
+                <DestinationWeather destination={this.state.destination} destinationWeatherForecast ={this.state.destinationWeather} />
                 <Cards getPassedLocation={this.getCurrentClickedLocation.bind(this)} pointsOfInterest={this.state.pointsOfInterest}/>
                 {this.state.renderCardContainer && <CardContainer getActiveDay={this.getActiveDay.bind(this)} 
                 deactivateLocation={this.getCurrentClickedLocation.bind(this)} 
