@@ -195,7 +195,7 @@ export default class InputForm extends Component {
                 <div>
                     <Cards getPassedLocation={this.getCurrentClickedLocation.bind(this)}
                            pointsOfInterest={this.state.pointsOfInterest}/>
-                        {this.state.renderCardContainer &&  <div><h2 className='text-center'> PREPARE YOUR ITINERARY</h2>{tripDays}</div>}
+                        {this.state.renderCardContainer &&  <div><h2 className='text-center'>PREPARE YOUR ITINERARY</h2>{tripDays}</div>}
                     <DestinationWeather destination={this.state.destination}
                                         destinationWeatherForecast={this.state.destinationWeather}
                                         tripDates={this.state.tripDates}/>
