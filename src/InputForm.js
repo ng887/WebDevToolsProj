@@ -100,16 +100,9 @@ export default class InputForm extends Component {
                 //console.log('City Name: '+ json.city.name);
                 //console.log(json.list[0]);
                 //console.log('Current Temp: '+ parseInt(json.list[0].main.temp - 273.15) + ' degree C');
-<<<<<<< HEAD
                 //const currentTemp = parseInt(json.list[0].main.temp - 273.15);
                 this.setState({
                       destinationWeather:json.list
-=======
-                const currentTemp = parseInt(json.list[0].main.temp - 273.15);
-                this.setState({  destination: {
-                    currentTemp:currentTemp },
-                    destinationWeather:json.list
->>>>>>> be40cbd9d81731ef429b5244d90caa08d9b44400
                 });
 
             });
@@ -168,14 +161,8 @@ export default class InputForm extends Component {
                   <Button className={'col-md-2 btn-info'} onClick={this.onSubmit}>Search</Button>
                 </form>
                 <br/>                
-<<<<<<< HEAD
             </div>}
             <div>               
-=======
-            </div>
-            <div>
-                <DestinationWeather destination={this.state.destination} destinationWeatherForecast ={this.state.destinationWeather} />
->>>>>>> be40cbd9d81731ef429b5244d90caa08d9b44400
                 <Cards getPassedLocation={this.getCurrentClickedLocation.bind(this)} pointsOfInterest={this.state.pointsOfInterest}/>
                 {this.state.renderCardContainer && <CardContainer getActiveDay={this.getActiveDay.bind(this)} 
                 deactivateLocation={this.getCurrentClickedLocation.bind(this)} 
