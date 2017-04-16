@@ -20,7 +20,7 @@ export default class Card extends Component {
         let photoUrl;
         // console.log(photoUrl);
         if (pointOfInterest.photos) {
-            photoUrl = pointOfInterest.photos[0].getUrl({maxWidth: 640});
+            photoUrl = pointOfInterest.photos[0].getUrl({maxWidth: 240});
         }
         else {
             photoUrl = noImg;
@@ -28,13 +28,10 @@ export default class Card extends Component {
 
         return (
             <div className='card text-center' key={i}>
+                <div   style={{background:'url(' + photoUrl + ')no-repeat center', backgroundSize:'cover', height: 180, width:'100%'}}></div>
                 <div><b> {pointOfInterest.name}</b></div>
-                <br/>
-                <div><img src={photoUrl} alt={pointOfInterest.name} className="wideImg"/></div>
                 <div><b>Rating:</b> {pointOfInterest.rating}</div>
-                <br/>
-                <Button type="button" onClick={this.passToDayContainer.bind(this, pointOfInterest)} className="btn btn-info">Add
-                    to iternary</Button>
+                <Button type="button" onClick={this.passToDayContainer.bind(this, pointOfInterest)} className="btn btn-info"><b>+</b></Button>
             </div>
         )
     }
