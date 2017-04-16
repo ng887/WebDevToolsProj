@@ -23,12 +23,12 @@ export default class TripDay extends Component {
         if (!dayLocations.length) {
             return (
                 <div>
-                <div className="col-md-3" style={{marginTop: 100, marginLeft: 40}}>
+                <div className='margin padding'>
                     <div onClick={(e) => this.activateDay(e)} id={this.props.day} className={classNameForDayHeader}>
                         Day {this.props.day}</div>
                     <div className="daycard-body-placeholder">Add places to visit!</div>
                 </div>
-                    </div>
+                </div>
             );
         }
         let dayEvents = dayLocations.map((entry) => {

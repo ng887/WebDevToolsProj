@@ -26,7 +26,7 @@ export default class Cards extends Component  {
                   <Card passLocation={this.handlePassLocation.bind(this)} pointOfInterest={pointsOfInterest[i]} i={i} key={i}/>
                   <Card passLocation={this.handlePassLocation.bind(this)} pointOfInterest={pointsOfInterest[i+1]} i={i+1} key={i+1}/>
                   <Card passLocation={this.handlePassLocation.bind(this)} pointOfInterest={pointsOfInterest[i+2]} i={i+2} key={i+2}/>
-                   <Card passLocation={this.handlePassLocation.bind(this)} pointOfInterest={pointsOfInterest[i+3]} i={i+2} key={i+3}/>
+                  <Card passLocation={this.handlePassLocation.bind(this)} pointOfInterest={pointsOfInterest[i+3]} i={i+2} key={i+3}/>
                 </div>
                 </Carousel.Item>
             );

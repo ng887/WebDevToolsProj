@@ -194,11 +194,16 @@ export default class InputForm extends Component {
                 </div>}
                 <div>
                     <Cards getPassedLocation={this.getCurrentClickedLocation.bind(this)}
-                           pointsOfInterest={this.state.pointsOfInterest}/>
-                        {this.state.renderCardContainer &&  <div><h2 className='text-center'>PREPARE YOUR ITINERARY</h2>{tripDays}</div>}
-                    <DestinationWeather destination={this.state.destination}
-                                        destinationWeatherForecast={this.state.destinationWeather}
-                                        tripDates={this.state.tripDates}/>
+                    pointsOfInterest={this.state.pointsOfInterest}/>
+                    {this.state.renderCardContainer && 
+                    <div className='colLayout'>
+                        <h2 className='text-center'>PREPARE YOUR ITINERARY</h2>
+                        <div className='desktopLayout margin-left'>{tripDays} </div>
+                    </div>}
+                    <DestinationWeather 
+                            destination={this.state.destination}
+                            destinationWeatherForecast={this.state.destinationWeather}
+                            tripDates={this.state.tripDates}/>
                 </div>
             </div>
         );
