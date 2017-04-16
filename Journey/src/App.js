@@ -9,7 +9,6 @@ import Intro from './Intro';
 import Header from './Header';
 import InputForm from './InputForm';
 
-
 class App extends Component {
 
     render() {
@@ -17,7 +16,7 @@ class App extends Component {
             <div>
                 <Header/>
                 <Intro/>
-                <InputForm />
+               <InputForm />
             </div>
         );
     }

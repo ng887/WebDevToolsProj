@@ -2,14 +2,15 @@
  * Created by khutaijashariff on 4/7/17.
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Search from './Search';
 import DateRange from './DateRange';
-import { Button } from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 import {calculateDays} from './CalculateDays';
 import Cards from './Cards';
-import CardContainer from './CardContainer';
 import DestinationWeather from './DestinationWeather';
+import TripDay from './TripDay';
+import {getLocationForDays} from './GetLocationsForDays';
 
 
 export default class InputForm extends Component {
@@ -17,25 +18,25 @@ export default class InputForm extends Component {
         super(props);
         this.state = {
             destination: {city: '', state: '', country: '', longitude: '', latitude: ''},
-            tripDates:{startDate:localStorage.getItem('startDate'), endDate:localStorage.getItem('endDate')},
+            tripDates: {startDate: localStorage.getItem('startDate'), endDate: localStorage.getItem('endDate')},
             noOfDays: '',
             pointsOfInterest: '',
             renderCardContainer: false,
             currentAddedLocation: '',
             currentActiveDay: "1",
             locationOnDay: [],
-            destinationWeather:[]
+            destinationWeather: []
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.fetchWeatherDetails = this.fetchWeatherDetails.bind(this);
-        
+
     }
 
     componentDidMount() {
-       
+
         /* global google b:true */
         const placeInput = document.getElementById('autocomplete')
-        let autocomplete = new google.maps.places.Autocomplete(placeInput, { types: ['geocode'] })
+        let autocomplete = new google.maps.places.Autocomplete(placeInput, {types: ['geocode']})
 
         google.maps.event.addListener(autocomplete, 'place_changed', () => {
             let place = autocomplete.getPlace();
@@ -53,6 +54,7 @@ export default class InputForm extends Component {
 
         });
     }
+
     onSubmit(e) {
         e.preventDefault();
         this.fetchWeatherDetails(this.state.destination.city);
@@ -64,7 +66,7 @@ export default class InputForm extends Component {
             location: new google.maps.LatLng(this.state.destination.latitude, this.state.destination.longitude),
             radius: '5000',
             types: ['amusement_park', 'aquarium', 'art_gallery', 'casino', 'hindu_temple', 'mosque', 'museum',
-                 'park', 'zoo'
+                'park', 'zoo'
             ]
         };
 
@@ -78,7 +80,7 @@ export default class InputForm extends Component {
         this.setState({
             renderCardContainer: true
         })
-      
+
     }
 
 
@@ -100,16 +102,9 @@ export default class InputForm extends Component {
                 //console.log('City Name: '+ json.city.name);
                 //console.log(json.list[0]);
                 //console.log('Current Temp: '+ parseInt(json.list[0].main.temp - 273.15) + ' degree C');
-<<<<<<< HEAD
                 //const currentTemp = parseInt(json.list[0].main.temp - 273.15);
                 this.setState({
-                      destinationWeather:json.list
-=======
-                const currentTemp = parseInt(json.list[0].main.temp - 273.15);
-                this.setState({  destination: {
-                    currentTemp:currentTemp },
-                    destinationWeather:json.list
->>>>>>> be40cbd9d81731ef429b5244d90caa08d9b44400
+                    destinationWeather: json.list
                 });
 
             });
@@ -118,14 +113,14 @@ export default class InputForm extends Component {
     fetchFlightDetails() {
         const api_key = 'no883655154989405407520801242418';
         const params = 'FR/eur/en-us/uk/us/anytime/anytime';
-        const currency='usd';
+        const currency = 'usd';
         const locale = 'en-us';
         const originPlace = 'RDM';
         const destinationPlace = `${this.state.destination.latitude},${this.state.destination.longitude}-latlong`;
         console.log(destinationPlace);
 
-       // const root_url = `http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/${params}?apikey=${api_key}`;
-       const root_url = `http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/us/${currency}/${locale}/${originPlace}/${destinationPlace}/anytime/anytime?apikey=${api_key}`;
+        // const root_url = `http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/${params}?apikey=${api_key}`;
+        const root_url = `http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/us/${currency}/${locale}/${originPlace}/${destinationPlace}/anytime/anytime?apikey=${api_key}`;
         //browsedates/v1.0/{country}/{currency}/{locale}/{originPlace}/{destinationPlace}/{outboundPartialDate}/{inboundPartialDate}
         console.log(root_url);
 
@@ -138,18 +133,29 @@ export default class InputForm extends Component {
                 console.log(json);
             })
 
-            .catch(function(error) {
-               // console.log('Request failure: ', error);
+            .catch(function (error) {
+                // console.log('Request failure: ', error);
             });
 
     }
 
+    updateRemovedLocation(locationName, day) {
+        const locationOnDay = this.state.locationOnDay;
+        const locationRemoved = locationOnDay.filter(function (entry) {
+            return (entry.location.name !== locationName);
+        });
+        // console.log(locationRemoved);
+        this.setState({
+            locationOnDay: locationRemoved
+        })
+    }
+
     getCurrentClickedLocation(location) {
-       this.setState({
-           currentAddedLocation: location,
-           //locationOnDay: [...this.state.locationOnDay, {day: this.state.currentActiveDay, location: location}]
-           locationOnDay: [...this.state.locationOnDay, {location: location, day: this.state.currentActiveDay}]
-       })
+        this.setState({
+            currentAddedLocation: location,
+            //locationOnDay: [...this.state.locationOnDay, {day: this.state.currentActiveDay, location: location}]
+            locationOnDay: [...this.state.locationOnDay, {location: location, day: this.state.currentActiveDay}]
+        })
     }
 
     getActiveDay(dayId) {
@@ -159,34 +165,42 @@ export default class InputForm extends Component {
     }
 
     render() {
+        const noOfDays = this.state.noOfDays;
+        const locationOnDay = this.state.locationOnDay;
+        let currentLocations = [];
+
+        for (let day = 1; day <= noOfDays; day++) {
+            currentLocations.push(getLocationForDays(day, locationOnDay));
+        }
+
+        const tripDays = [];
+        for (let day = 0; day < noOfDays; day++) {
+            let dayMarkup = (<TripDay key={day+1} day={day+1} dayLocations={currentLocations[day]}
+                                      getActiveDay={this.getActiveDay.bind(this)}
+                                      removeLocation={this.updateRemovedLocation.bind(this)}
+                                      activeDay={this.state.currentActiveDay}/>);
+            tripDays.push(dayMarkup);
+        }
+
         return (
-           <div> 
-           {this.state.renderCardContainer ||   <div>
-                <form className={'top-margin text-center'}>
-                <div className={'col-md-3 col-md-offset-2'}><Search /></div>
-                 <div className={'col-md-3'}><DateRange /></div>
-                  <Button className={'col-md-2 btn-info'} onClick={this.onSubmit}>Search</Button>
-                </form>
-                <br/>                
-<<<<<<< HEAD
-            </div>}
-            <div>               
-=======
-            </div>
             <div>
-                <DestinationWeather destination={this.state.destination} destinationWeatherForecast ={this.state.destinationWeather} />
->>>>>>> be40cbd9d81731ef429b5244d90caa08d9b44400
-                <Cards getPassedLocation={this.getCurrentClickedLocation.bind(this)} pointsOfInterest={this.state.pointsOfInterest}/>
-                {this.state.renderCardContainer && <CardContainer getActiveDay={this.getActiveDay.bind(this)} 
-                deactivateLocation={this.getCurrentClickedLocation.bind(this)} 
-                locationOnDay={this.state.locationOnDay}
-                pointsOfInterest={this.state.pointsOfInterest} 
-                noOfDays={this.state.noOfDays}/>}
-                 <DestinationWeather destination={this.state.destination} 
-                 destinationWeatherForecast ={this.state.destinationWeather}
-                 tripDates ={this.state.tripDates} />
+                {this.state.renderCardContainer || <div>
+                    <form className={'top-margin text-center'}>
+                        <div className={'col-md-3 col-md-offset-2'}><Search /></div>
+                        <div className={'col-md-3'}><DateRange /></div>
+                        <Button className={'col-md-2 btn-info'} onClick={this.onSubmit}>Search</Button>
+                    </form>
+                    <br/>
+                </div>}
+                <div>
+                    <Cards getPassedLocation={this.getCurrentClickedLocation.bind(this)}
+                           pointsOfInterest={this.state.pointsOfInterest}/>
+                        {this.state.renderCardContainer &&  <div><h2 className='text-center'> PREPARE YOUR ITINERARY</h2>{tripDays}</div>}
+                    <DestinationWeather destination={this.state.destination}
+                                        destinationWeatherForecast={this.state.destinationWeather}
+                                        tripDates={this.state.tripDates}/>
+                </div>
             </div>
-           </div>    
         );
     }
 }

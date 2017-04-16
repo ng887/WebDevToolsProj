@@ -31,8 +31,10 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: sans-serif!important, "Philosopher", "Raleway";
+  font-family: sans-serif !important;
 }
+
+/*"Philosopher", "Raleway"*/
 
 .top-margin{
   margin-top: 5%;
@@ -143,4 +145,71 @@ h6 {
 
 .brand-color3{
   background-color:  white;
+}
+
+
+.daycard {
+  margin: 5%;
+  height: 240px;
+  width: 240px;
+  border: 1px solid;
+}
+
+.daycard-body{
+  font-family: Helvetica;
+  font-size: 12px;
+  padding-top: 9px;
+  padding-left: 7px;
+  height: 350px;
+  width: 250px;
+  border: 1px solid;
+}
+
+.daycard-body-placeholder{
+  font-family: Helvetica;
+  font-size: 24px;
+  padding-top: 9px;
+  padding-left: 7px;
+  height: 350px;
+  width: 250px;
+  border: 1px solid;
+  line-height: 12;
+  text-align: center;
+}
+
+.daycard-header{
+  text-align: center;
+  color: #FFFFFF;
+  height: 40px;
+  width: 250px;
+  padding-top: 6px;
+  font-family: Helvetica;
+  font-size: 16px;
+  background-color: lightgrey;
+  border: 1px solid;
+  border-color: black;
+}
+
+
+.daycard-header-highlight{
+  text-align: center;
+  color: #FFFFFF;
+  height: 40px;
+  width: 250px;
+  padding-top: 6px;
+  font-family: Helvetica;
+  font-size: 16px;
+  background-color: #00868B;
+  border: 1px solid;
+  border-color: black;
+}
+
+.daycard-location {
+  border-bottom: solid 1px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-right: 8px;
+  padding-left: 6px;
+  margin: 0;
+
 }
