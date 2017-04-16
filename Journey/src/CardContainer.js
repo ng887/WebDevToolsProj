@@ -43,8 +43,12 @@ class CardContainer extends Component {
         }
 
         return (
-            <div>
+            <div className='brand-color2'>
+            <h2 className='text-center'> PREPARE YOUR ITINERARY </h2>
+            <div className='desktopLayout margin-left'>            
+            <br/>
                 {tempDiv}
+            </div>
             </div>
         )
     }

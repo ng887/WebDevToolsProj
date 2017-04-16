@@ -11,11 +11,13 @@ import Cards from './Cards';
 import CardContainer from './CardContainer';
 import DestinationWeather from './DestinationWeather';
 
+
 export default class InputForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             destination: {city: '', state: '', country: '', longitude: '', latitude: ''},
+            tripDates:{startDate:localStorage.getItem('startDate'), endDate:localStorage.getItem('endDate')},
             noOfDays: '',
             pointsOfInterest: '',
             renderCardContainer: false,
@@ -30,6 +32,7 @@ export default class InputForm extends Component {
     }
 
     componentDidMount() {
+       
         /* global google b:true */
         const placeInput = document.getElementById('autocomplete')
         let autocomplete = new google.maps.places.Autocomplete(placeInput, { types: ['geocode'] })
@@ -84,10 +87,10 @@ export default class InputForm extends Component {
         const root_url = `http://api.openweathermap.org/data/2.5/forecast?appid=${api_key}`;
 
         const url = `${root_url}&q=${city},us`;
-        console.log(url);
+        //console.log(url);
         fetch(url)
             .then((res) => {
-                console.log(res);
+                //console.log(res);
                 return res.json();
                 // const data = this.state.weather;
                 // this.setState({ weather: data.concat([res.data])});
@@ -114,10 +117,10 @@ export default class InputForm extends Component {
         const destinationPlace = `${this.state.destination.latitude},${this.state.destination.longitude}-latlong`;
         console.log(destinationPlace);
 
-        const root_url = `http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/${params}?apikey=${api_key}`;
-       // const root_url = `http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/{this.destination.state.country}/{currency}/{locale}/{originPlace}/{this.destination.city}/{outboundPartialDate}/{inboundPartialDate}?apikey=${api_key}`;
+       // const root_url = `http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/${params}?apikey=${api_key}`;
+       const root_url = `http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/us/${currency}/${locale}/${originPlace}/${destinationPlace}/anytime/anytime?apikey=${api_key}`;
         //browsedates/v1.0/{country}/{currency}/{locale}/{originPlace}/{destinationPlace}/{outboundPartialDate}/{inboundPartialDate}
-
+        console.log(root_url);
 
         fetch(root_url)
             .then((res) => {
@@ -125,7 +128,7 @@ export default class InputForm extends Component {
                 return res.json();
             })
             .then((json) => {
-                //console.log(json);
+                console.log(json);
             })
 
             .catch(function(error) {
@@ -159,15 +162,16 @@ export default class InputForm extends Component {
                 </form>
                 <br/>                
             </div>}
-            <div>
-                <DestinationWeather destination={this.state.destination} destinationWeatherForecast ={this.state.destinationWeather} />
+            <div>               
                 <Cards getPassedLocation={this.getCurrentClickedLocation.bind(this)} pointsOfInterest={this.state.pointsOfInterest}/>
                 {this.state.renderCardContainer && <CardContainer getActiveDay={this.getActiveDay.bind(this)} 
                 deactivateLocation={this.getCurrentClickedLocation.bind(this)} 
                 locationOnDay={this.state.locationOnDay}
                 pointsOfInterest={this.state.pointsOfInterest} 
                 noOfDays={this.state.noOfDays}/>}
-
+                 <DestinationWeather destination={this.state.destination} 
+                 destinationWeatherForecast ={this.state.destinationWeather}
+                 tripDates ={this.state.tripDates} />
             </div>
            </div>    
         );

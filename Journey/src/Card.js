@@ -27,15 +27,12 @@ export default class Card extends Component {
         }
 
         return (
-            <div className='card text-center' key={i}>
-                <div><b> {pointOfInterest.name}</b></div>
-                <br/>
-                <div><img src={photoUrl} alt={pointOfInterest.name} className="wideImg"/></div>
-                <div><b>Rating:</b> {pointOfInterest.rating}</div>
-                <br/>
-                <Button type="button" onClick={this.passToDayContainer.bind(this, pointOfInterest)} className="btn btn-info">Add
-                    to iternary</Button>
-            </div>
+              <div className='card text-center' key={i}>
+        <div   style={{background:'url(' + photoUrl + ')no-repeat center', backgroundSize:'cover', height: 180, width:'100%'}}></div>
+        <div><b> {pointOfInterest.name}</b></div>
+        <div><b>Rating:</b> {pointOfInterest.rating}</div>
+        <Button type="button" onClick={this.passToDayContainer.bind(this, pointOfInterest)} className="btn btn-info"><b>+</b></Button>
+    </div>
         )
     }
 }

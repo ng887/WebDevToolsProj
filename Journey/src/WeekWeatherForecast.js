@@ -20,13 +20,12 @@ const WeekWeatherForecast = ({
                 const dateTxt = date.toString().substring(4, 10);
                 if (date.getHours() === 5) {
                     WeekWeatherForecast.push(
-                    <div>
-                    <table className='text-center'>
-		 			<td><span> {dateTxt} 5AM</span> </td>
-	                <td><img src={"http://openweathermap.org/img/w/"+day.weather[0].icon+".png"}  alt="weather_icon" /> </td>
-	                <td><b> {day.weather[0].description} </b></td>
-	                <td><span>&nbsp;    {parseInt(day.main.temp - 273.15)}˚C</span>  <br/></td>
-	                </table>
+                    <div className='text-center colLayout border marging padding brand-color3'>                 
+		 			<span> {dateTxt} 5AM</span>
+	                <img src={"http://openweathermap.org/img/w/"+day.weather[0].icon+".png"}  alt="weather_icon" />  <br/>
+	                <b> {day.weather[0].description} </b> <br/>
+	                <span>&nbsp;    {parseInt(day.main.temp - 273.15)}˚C</span>  <br/>
+	                
 	                </div>
 
                     )
@@ -34,7 +33,7 @@ const WeekWeatherForecast = ({
             })
       		
     return (
-    	<div className='card text-center'>
+    	<div className='desktopLayout'>
     	{WeekWeatherForecast}
     	</div> 
     	)
