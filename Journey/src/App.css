@@ -103,6 +103,7 @@ h6 {
 .border{
   border:solid;
 }
+
 .card{
   margin: 5% 1%;
   /* box-shadow: 10px 10px 5px #888888; */
@@ -117,6 +118,11 @@ h6 {
   background-color: white;
 }
 
+.card-button {
+  border: solid 1px;
+  padding: 3px;
+  text-decoration: none !important;
+}
 
 .wideImg{
   width:100%;

@@ -31,7 +31,7 @@ export default class Card extends Component {
                 <div   style={{background:'url(' + photoUrl + ')no-repeat center', backgroundSize:'cover', height: 180, width:'100%'}}></div>
                 <div><b> {pointOfInterest.name}</b></div>
                 <div><b>Rating:</b> {pointOfInterest.rating}</div>
-                <Button type="button" onClick={this.passToDayContainer.bind(this, pointOfInterest)} className="btn btn-info"><b>+</b></Button>
+                <a onClick={this.passToDayContainer.bind(this, pointOfInterest)} className="card-button">Add to Iternary</a>
             </div>
         )
     }
