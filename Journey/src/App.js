@@ -11,12 +11,19 @@ import InputForm from './InputForm';
 
 class App extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            showIntro: true
+        }
+    }
+
     render() {
         return (
             <div>
                 <Header/>
-                <Intro/>
-               <InputForm />
+                {this.state.showIntro && <Intro/>}
+                 <InputForm />
             </div>
         );
     }

@@ -218,3 +218,9 @@ h6 {
   padding-left: 6px;
   margin: 0;
 }
+
+.j-button-span{
+  border-radius: 0 !important;
+}
+
+

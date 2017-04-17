@@ -19,26 +19,31 @@ export default class InputForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            page: 'InputForm',
             destination: {city: '', state: '', country: '', longitude: '', latitude: ''},
             tripDates: {startDate: localStorage.getItem('startDate'), endDate: localStorage.getItem('endDate')},
             noOfDays: '',
             pointsOfInterest: '',
-            renderCardContainer: false,
             currentAddedLocation: '',
             currentActiveDay: 1,
             locationOnDay: [],
             destinationWeather: [],
-             tripTravelExpenses: []
+            tripTravelExpenses: [],
+            showIternary: true,
+            showFlight: false,
+            showWeather: false,
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.fetchWeatherDetails = this.fetchWeatherDetails.bind(this);
-
+        this.activateIternary = this.activateIternary.bind(this);
+        this.activateFlight = this.activateFlight.bind(this);
+        this.activateWeather = this.activateWeather.bind(this);
     }
 
     componentDidMount() {
 
         /* global google b:true */
-        const placeInput = document.getElementById('autocomplete')
+        const placeInput = document.getElementById('autocomplete');
         let autocomplete = new google.maps.places.Autocomplete(placeInput, {types: ['geocode']})
 
         google.maps.event.addListener(autocomplete, 'place_changed', () => {
@@ -73,7 +78,7 @@ export default class InputForm extends Component {
             ]
         };
 
-        let searchResults = document.getElementById('test');
+        let searchResults = document.getElementById('autocomplete');
         let service = new google.maps.places.PlacesService(searchResults);
         service.nearbySearch(request, (results, status) => {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -81,7 +86,7 @@ export default class InputForm extends Component {
             }
         });
         this.setState({
-            renderCardContainer: true
+            page: 'Results'
         })
 
     }
@@ -113,19 +118,19 @@ export default class InputForm extends Component {
             });
     }
 
-     fetchFlightDetails() {
+    fetchFlightDetails() {
         const api_key = 'no883655154989405407520801242418';
         const params = 'FR/eur/en-us/uk/us/anytime/anytime';
         const currency = 'usd';
         const locale = 'en-us';
         const originPlace = 'RDM';
         const destinationPlace = `${this.state.destination.latitude},${this.state.destination.longitude}-latlong`;
-        console.log(destinationPlace);
+        // console.log(destinationPlace);
 
         // const root_url = `http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/${params}?apikey=${api_key}`;
         const root_url = `http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/us/${currency}/${locale}/${originPlace}/${destinationPlace}/anytime/anytime?apikey=${api_key}`;
         //browsedates/v1.0/{country}/{currency}/{locale}/{originPlace}/{destinationPlace}/{outboundPartialDate}/{inboundPartialDate}
-        console.log(root_url);
+        // console.log(root_url);
 
         fetch(root_url)
             .then((res) => {
@@ -133,8 +138,8 @@ export default class InputForm extends Component {
                 return res.json();
             })
             .then((json) => {
-                console.log(json);
-                this.setState({                    
+                // console.log(json);
+                this.setState({
                     tripTravelExpenses: json
                 });
 
@@ -168,7 +173,34 @@ export default class InputForm extends Component {
         })
     }
 
+    activateIternary() {
+        this.setState({
+            showIternary: true,
+            showFlight: false,
+            showWeather: false
+        })
+    }
+
+    activateFlight() {
+        this.setState({
+            showFlight: true,
+            showIternary: false,
+            showWeather: false
+        })
+    }
+
+    activateWeather() {
+        this.setState({
+            showWeather: true,
+            showIternary: false,
+            showFlight: false
+        })
+    }
+
     render() {
+        const iternaryButtonClass = this.state.showIternary ? "btn btn-lg btn-info j-button-span" : "btn btn-lg btn-info j-button-span disabled";
+        const flightButtonClass = this.state.showFlight ? "btn btn-lg btn-info j-button-span" : "btn btn-lg btn-info j-button-span disabled";
+        const weatherButtonClass = this.state.showWeather ? "btn btn-lg btn-info j-button-span" : "btn btn-lg btn-info j-button-span disabled";
         const noOfDays = this.state.noOfDays;
         const locationOnDay = this.state.locationOnDay;
         let currentLocations = [];
@@ -188,30 +220,48 @@ export default class InputForm extends Component {
 
         return (
             <div>
-                {this.state.renderCardContainer || <div>
+
+                { this.state.page === 'InputForm' && <div>
                     <form className={'top-margin text-center'}>
                         <div className={'col-md-3 col-md-offset-2'}><Search /></div>
                         <div className={'col-md-3'}><DateRange /></div>
                         <Button className={'col-md-2 btn-info'} onClick={this.onSubmit}>Search</Button>
                     </form>
                     <br/>
-                </div>}
+                </div> }
+
+                {this.state.page === 'Results' &&
                 <div>
+
                     <Cards getPassedLocation={this.getCurrentClickedLocation.bind(this)}
-                    pointsOfInterest={this.state.pointsOfInterest}/>
-                    {this.state.renderCardContainer && 
+                           pointsOfInterest={this.state.pointsOfInterest}/>
+
                     <div className='colLayout'>
-                        <h2 className='text-center'>PREPARE YOUR ITINERARY</h2>
-                        <div className='desktopLayout margin-left'>{tripDays} </div>
-                    </div>}
-                    <DestinationWeather 
+
+                        <div className="col-md-8 remove-padding-left">
+                            <span onClick={this.activateIternary} className={iternaryButtonClass}>Iternary</span>
+                            <span onClick={this.activateFlight} className={flightButtonClass}>Flights</span>
+                            <span onClick={this.activateWeather} className={weatherButtonClass}>Weather</span>
+                        </div>
+
+                        { this.state.showIternary && <div>
+                            <h2 className='text-center'>PREPARE YOUR ITINERARY</h2>
+                            <div className='desktopLayout margin-left'>{tripDays}</div>
+                        </div> }
+
+                        {  this.state.showFlight && <TripTravelExpense
+                            tripTravelExpenses={this.state.tripTravelExpenses}/>}
+
+                        {this.state.showWeather && <DestinationWeather
                             destination={this.state.destination}
                             destinationWeatherForecast={this.state.destinationWeather}
-                            tripDates={this.state.tripDates}/>
-                    <TripTravelExpense 
-                        tripTravelExpenses={this.state.tripTravelExpenses}
-                    />
+                            tripDates={this.state.tripDates}/> }
+
+                    </div>
+
                 </div>
+                }
+
             </div>
         );
     }
