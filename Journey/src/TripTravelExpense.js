@@ -33,8 +33,7 @@ const TripTravelExpense = ({
                    	<tr>
                    		<td> {tripQuotes[i].OutboundLeg.DepartureDate}</td>				
 						<td> {origin} </td>
-						<td> {destination} </td>			
-						
+						<td> {destination} </td>
 						<td> {currency}{tripQuotes[i].MinPrice} </td>
 						<td> {carrierName} </td>
 						
@@ -48,18 +47,21 @@ const TripTravelExpense = ({
    
 
     return (
-        <div>	
+        <div className='desktopLayout' style={{marginTop: 50}}>
         	OutboundLeg
-        	<table>
+			<table className="table table-striped">
+				<thead>
 				<tr>
-
 					<th> Date Time </th>
 					<th> Origin Place </th>
 					<th> Destination Place </th>
 					<th> Min Price </th>
 					<th> Carriers </th>
-				</tr>
+					</tr>
+				</thead>
+				<tbody>
 				{TripQuotes}
+				</tbody>
 			</table>
         	
       

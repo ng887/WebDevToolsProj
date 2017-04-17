@@ -22,7 +22,6 @@ class App extends Component {
         return (
             <div>
                 <Header/>
-                {this.state.showIntro && <Intro/>}
                  <InputForm />
             </div>
         );
