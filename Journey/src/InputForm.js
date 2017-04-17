@@ -27,7 +27,8 @@ export default class InputForm extends Component {
             currentAddedLocation: '',
             currentActiveDay: 1,
             locationOnDay: [],
-            destinationWeather: []
+            destinationWeather: [],
+             tripTravelExpenses: []
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.fetchWeatherDetails = this.fetchWeatherDetails.bind(this);
