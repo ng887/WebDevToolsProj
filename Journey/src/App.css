@@ -159,7 +159,7 @@ h6 {
   font-family: Helvetica;
   font-size: 12px;
   padding-top: 9px;
-  padding-left: 7px;
+  /*padding-left: 7px;*/
   height: 350px;
   width: 250px;
   border: 1px solid;
