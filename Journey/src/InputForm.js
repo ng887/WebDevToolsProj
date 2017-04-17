@@ -38,6 +38,7 @@ export default class InputForm extends Component {
         this.activateIternary = this.activateIternary.bind(this);
         this.activateFlight = this.activateFlight.bind(this);
         this.activateWeather = this.activateWeather.bind(this);
+        this.reset = this.reset.bind(this);
     }
 
     componentDidMount() {
@@ -196,11 +197,11 @@ export default class InputForm extends Component {
             showFlight: false
         })
     }
-
+    
     render() {
-        const iternaryButtonClass = this.state.showIternary ? "btn btn-lg btn-info j-button-span" : "btn btn-lg btn-info j-button-span disabled";
-        const flightButtonClass = this.state.showFlight ? "btn btn-lg btn-info j-button-span" : "btn btn-lg btn-info j-button-span disabled";
-        const weatherButtonClass = this.state.showWeather ? "btn btn-lg btn-info j-button-span" : "btn btn-lg btn-info j-button-span disabled";
+        const iternaryButtonClass = this.state.showIternary ? "btn btn-lg btn-info j-button-span col-md-2" : "btn btn-lg btn-info j-button-span disabled col-md-2";
+        const flightButtonClass = this.state.showFlight ? "btn btn-lg btn-info col-md-2 j-button-span" : "btn btn-lg btn-info j-button-span disabled col-md-2";
+        const weatherButtonClass = this.state.showWeather ? "btn btn-lg btn-info col-md-2 j-button-span" : "btn btn-lg btn-info j-button-span col-md-2 disabled";
         const noOfDays = this.state.noOfDays;
         const locationOnDay = this.state.locationOnDay;
         let currentLocations = [];
@@ -238,7 +239,7 @@ export default class InputForm extends Component {
 
                     <div className='colLayout'>
 
-                        <div className="col-md-8 remove-padding-left">
+                        <div>
                             <span onClick={this.activateIternary} className={iternaryButtonClass}>Iternary</span>
                             <span onClick={this.activateFlight} className={flightButtonClass}>Flights</span>
                             <span onClick={this.activateWeather} className={weatherButtonClass}>Weather</span>
