@@ -26,8 +26,8 @@ const DestinationWeather = ({
 		//console.log(displayForecast);		
     return (
       <div className='desktopLayout margin margin-left'>
-        	{todayWeather !== undefined &&  todayWeather.weather!== undefined && <CurrentWeather todayWeather ={todayWeather} destination={destination}/>}
-          	{displayForecast && destinationWeatherForecast !== undefined && <WeekWeatherForecast destinationWeatherForecast = {destinationWeatherForecast}/>}
+        	{todayWeather !== undefined &&  todayWeather.weather!== undefined && <CurrentWeather todayWeather={todayWeather} destination={destination}/>}
+          	{displayForecast && destinationWeatherForecast!==undefined && <WeekWeatherForecast destinationWeatherForecast={destinationWeatherForecast}/>}
      </div>
     )
 }

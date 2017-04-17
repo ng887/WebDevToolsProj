@@ -7,9 +7,9 @@ import React from 'react';
 const WeekWeatherForecast = ({
     destinationWeatherForecast
 }) => {
-    const todayWeather = destinationWeatherForecast[0];
+   // const todayWeather = destinationWeatherForecast[0];
     let today = new Date();
-   // console.log(destinationWeatherForecast);
+    console.log(destinationWeatherForecast);
     
     const WeekWeatherForecast = [];
     

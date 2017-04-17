@@ -23,11 +23,11 @@ export default class TripDay extends Component {
         if (!dayLocations.length) {
             return (
                 <div>
-                <div className='margin padding'>
-                    <div onClick={(e) => this.activateDay(e)} id={this.props.day} className={classNameForDayHeader}>
-                        Day {this.props.day}</div>
-                    <div className="daycard-body-placeholder">Add places to visit!</div>
-                </div>
+                    <div className='margin padding'>
+                        <div onClick={(e) => this.activateDay(e)} id={this.props.day} className={classNameForDayHeader}>
+                            Day {this.props.day}</div>
+                        <div className="daycard-body-placeholder">Add places to visit!</div>
+                    </div>
                 </div>
             );
         }
@@ -39,11 +39,13 @@ export default class TripDay extends Component {
             </div>);
         })
         return (
-            <div className="col-md-3" style={{marginTop: 100, marginLeft: 60, marginRight: 60}}>
-                <div onClick={(e) => this.activateDay(e)} id={this.props.day} className={classNameForDayHeader}>
-                    Day {this.props.day}</div>
-                <div className="daycard-body">
-                    {dayEvents}
+            <div>
+                <div className='margin padding'>
+                    <div onClick={(e) => this.activateDay(e)} id={this.props.day} className={classNameForDayHeader}>
+                        Day {this.props.day}</div>
+                    <div className="daycard-body">
+                        {dayEvents}
+                    </div>
                 </div>
             </div>
         );
