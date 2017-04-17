@@ -12,6 +12,7 @@ import DestinationWeather from './DestinationWeather';
 import TripDay from './TripDay';
 import {getLocationForDays} from './GetLocationsForDays';
 import {removeLocation} from './RemoveLocation';
+import TripTravelExpense from './TripTravelExpense';
 
 
 export default class InputForm extends Component {
@@ -111,7 +112,7 @@ export default class InputForm extends Component {
             });
     }
 
-    fetchFlightDetails() {
+     fetchFlightDetails() {
         const api_key = 'no883655154989405407520801242418';
         const params = 'FR/eur/en-us/uk/us/anytime/anytime';
         const currency = 'usd';
@@ -132,6 +133,10 @@ export default class InputForm extends Component {
             })
             .then((json) => {
                 console.log(json);
+                this.setState({                    
+                    tripTravelExpenses: json
+                });
+
             })
 
             .catch(function (error) {
@@ -202,6 +207,9 @@ export default class InputForm extends Component {
                             destination={this.state.destination}
                             destinationWeatherForecast={this.state.destinationWeather}
                             tripDates={this.state.tripDates}/>
+                    <TripTravelExpense 
+                        tripTravelExpenses={this.state.tripTravelExpenses}
+                    />
                 </div>
             </div>
         );
