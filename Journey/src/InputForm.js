@@ -11,6 +11,7 @@ import Cards from './Cards';
 import DestinationWeather from './DestinationWeather';
 import TripDay from './TripDay';
 import {getLocationForDays} from './GetLocationsForDays';
+import {removeLocation} from './RemoveLocation';
 
 
 export default class InputForm extends Component {
@@ -23,7 +24,7 @@ export default class InputForm extends Component {
             pointsOfInterest: '',
             renderCardContainer: false,
             currentAddedLocation: '',
-            currentActiveDay: "1",
+            currentActiveDay: 1,
             locationOnDay: [],
             destinationWeather: []
         }
@@ -141,10 +142,7 @@ export default class InputForm extends Component {
 
     updateRemovedLocation(locationName, day) {
         const locationOnDay = this.state.locationOnDay;
-        const locationRemoved = locationOnDay.filter(function (entry) {
-            return (entry.location.name !== locationName);
-        });
-        // console.log(locationRemoved);
+        const locationRemoved = removeLocation(locationOnDay, locationName, day);
         this.setState({
             locationOnDay: locationRemoved
         })

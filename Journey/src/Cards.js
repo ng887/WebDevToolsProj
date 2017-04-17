@@ -15,10 +15,8 @@ export default class Cards extends Component  {
 
     render() {
         const tempDiv = [];
-        const noOfDays = this.props.noOfDays;
         const pointsOfInterest = this.props.pointsOfInterest;
         for (let i = 0; i < pointsOfInterest.length -4; i=i+4) {
-           
             tempDiv.push(
                 <Carousel.Item >
                   <h2 className='text-center'> PLACES OF INTEREST </h2> 
