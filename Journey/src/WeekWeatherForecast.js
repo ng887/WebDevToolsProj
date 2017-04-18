@@ -22,7 +22,7 @@ const WeekWeatherForecast = ({
             });
       		
     return (
-    	<div className='desktopLayout'>        
+    	<div className='desktopLayout' style={{flexWrap:'nowrap'}}>        
     	   {WeekWeatherForecast}
     	</div> 
     	)

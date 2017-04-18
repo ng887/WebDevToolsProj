@@ -1,8 +1,6 @@
-export function getCarrierPlaces(place_id, places) {
-    console.log(place_id);
+export function getCarrierPlaces(place_id, places) {    
     for (let i = 0; i < places.length; i++) {
-        if (places[i].PlaceId === place_id) {
-        	console.log(places[i].CityName)
+        if (places[i].PlaceId === place_id) {        	
             return places[i].CityName
         }
     }

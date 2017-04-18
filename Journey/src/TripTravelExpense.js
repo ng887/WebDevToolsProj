@@ -6,7 +6,6 @@ const TripTravelExpense = ({
 	tripTravelExpenses
 }) => {
 	const tripQuotes=tripTravelExpenses.Quotes
-	console.log(tripQuotes);
 	const carriers = tripTravelExpenses.Carriers
 	const places = tripTravelExpenses.Places
 
@@ -23,7 +22,7 @@ const TripTravelExpense = ({
                     const destination = getCarrierPlaces(tripQuotes[i].OutboundLeg.DestinationId, places);
                     TripQuotes.push(
 
-                   	<tr>
+                   	<tr key={i}>
                    		<td> {tripQuotes[i].OutboundLeg.DepartureDate}</td>				
 						<td> {origin} </td>
 						<td> {destination} </td>
