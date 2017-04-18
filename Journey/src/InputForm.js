@@ -50,9 +50,9 @@ export default class InputForm extends Component {
 
             this.setState({
                 destination: {
-                    city: place.address_components[0].long_name,
-                    state: place.address_components[2].long_name,
-                    country: place.address_components[3].long_name,
+                    city: place.address_components[0] !== undefined? place.address_components[0].long_name : '',
+                    state: place.address_components[2] !== undefined? place.address_components[2].long_name : '', 
+                    country: place.address_components[3] !== undefined? place.address_components[3].long_name : '',                   
                     longitude: place.geometry.location.lng(),
                     latitude: place.geometry.location.lat()
                 }

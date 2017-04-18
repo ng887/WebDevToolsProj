@@ -32,7 +32,7 @@ export default class Cards extends Component  {
             </div>
 
              {this.props.pointsOfInterest && 
-            <Carousel className='brand-color'>          
+            <Carousel key="carousel" className='brand-color'>          
                       {tempDiv}
             </Carousel>}
         </div>      
