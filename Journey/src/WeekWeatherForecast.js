@@ -5,13 +5,13 @@ const WeekWeatherForecast = ({
 }) => {       
     const WeekWeatherForecast = [];  
     
-            destinationWeatherForecast.map((day) => {
+            destinationWeatherForecast.map((day,i) => {
                 const date = (new Date(day.dt * 1000));               
                 const dateTxt = date.toString().substring(4, 10);
         
                 if (date.getHours() === 5) {
                     WeekWeatherForecast.push(
-                        <div className='text-center colLayout border marging padding brand-color3'>                            
+                        <div key={i} className='text-center colLayout border marging padding brand-color3'>                            
         		 			<span>{dateTxt} 5AM</span>
         	                <img src={"http://openweathermap.org/img/w/"+day.weather[0].icon+".png"}  alt="weather_icon" />  <br/>
         	                <b>{day.weather[0].description} </b> <br/>
