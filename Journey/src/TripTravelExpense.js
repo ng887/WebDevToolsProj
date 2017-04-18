@@ -21,8 +21,6 @@ const TripTravelExpense = ({
                     const carrierName = getCarrierName(tripQuotes[i].OutboundLeg.CarrierIds[0], carriers);
                     const origin = getCarrierPlaces(tripQuotes[i].OutboundLeg.OriginId, places);
                     const destination = getCarrierPlaces(tripQuotes[i].OutboundLeg.DestinationId, places);
-
-                    console.log(carrierName)
                     TripQuotes.push(
 
                    	<tr>
