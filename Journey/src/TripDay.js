@@ -17,7 +17,7 @@ export default class TripDay extends Component {
     render() {
         const dayLocations = this.props.dayLocations;
         let classNameForDayHeader = "daycard-header";
-        if (this.props.activeDay == this.props.day) {
+        if (this.props.activeDay.toString() === this.props.day.toString()) {
             classNameForDayHeader = "daycard-header-highlight";
         }
         if (!dayLocations.length) {

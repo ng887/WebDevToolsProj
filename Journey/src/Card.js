@@ -4,9 +4,6 @@
 
 import React, {Component} from 'react';
 import noImg from './images/No_image_available.jpg';
-import {Button} from 'react-bootstrap';
-
-
 
 export default class Card extends Component {
 

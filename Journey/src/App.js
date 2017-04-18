@@ -5,7 +5,7 @@
 import React, {Component} from 'react';
 import './App.css';
 
-import Intro from './Intro';
+//import Intro from './Intro';
 import Header from './Header';
 import InputForm from './InputForm';
 

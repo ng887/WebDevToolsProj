@@ -6,12 +6,12 @@ import React, {Component} from 'react';
 import Search from './Search';
 import DateRange from './DateRange';
 import {Button} from 'react-bootstrap';
-import {calculateDays} from './CalculateDays';
+import {calculateDays} from './Functions/CalculateDays';
 import Cards from './Cards';
 import DestinationWeather from './DestinationWeather';
 import TripDay from './TripDay';
-import {getLocationForDays} from './GetLocationsForDays';
-import {removeLocation} from './RemoveLocation';
+import {getLocationForDays} from './Functions/GetLocationsForDays';
+import {removeLocation} from './Functions/RemoveLocation';
 import TripTravelExpense from './TripTravelExpense';
 
 
@@ -199,9 +199,9 @@ export default class InputForm extends Component {
     }
     
     render() {
-        const iternaryButtonClass = this.state.showIternary ? "btn btn-lg btn-info j-button-span col-md-2 col-lg-2" : "btn btn-lg btn-info j-button-span disabled col-md-2";
-        const flightButtonClass = this.state.showFlight ? "btn btn-lg btn-info col-md-2  j-button-span" : "btn btn-lg btn-info j-button-span disabled col-md-2 col-lg-2";
-        const weatherButtonClass = this.state.showWeather ? "btn btn-lg btn-info col-md-2 j-button-span" : "btn btn-lg btn-info j-button-span col-md-2  col-lg-2 disabled";
+        const iternaryButtonClass = this.state.showIternary ? "btn btn-lg btn-info j-button-span col-md-2 col-lg-2" : "btn btn-lg btn-default j-button-span col-md-2";
+        const flightButtonClass = this.state.showFlight ? "btn btn-lg btn-info col-md-2  j-button-span" : "btn btn-lg btn-default j-button-span col-md-2 col-lg-2";
+        const weatherButtonClass = this.state.showWeather ? "btn btn-lg btn-info col-md-2 j-button-span" : "btn btn-lg btn-default j-button-span col-md-2  col-lg-2";
         const noOfDays = this.state.noOfDays;
         const locationOnDay = this.state.locationOnDay;
         let currentLocations = [];

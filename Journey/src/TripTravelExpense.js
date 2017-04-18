@@ -3,8 +3,8 @@
  */
 
 import React from 'react';
-import {getCarrierName} from './getCarriers'
-import {getCarrierPlaces} from './getCarrierPlaces'
+import {getCarrierName} from './Functions/getCarriers'
+import {getCarrierPlaces} from './Functions/getCarrierPlaces'
 
 const TripTravelExpense = ({
 	tripTravelExpenses
