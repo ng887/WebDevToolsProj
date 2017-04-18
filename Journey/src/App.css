@@ -23,6 +23,10 @@
   to { transform: rotate(360deg); }
 }
 
+@fontface {
+  font-family: 'Philosopher';
+  src: url('https://fonts.googleapis.com/css?family=Philosopher')
+}
 
 body,
 h1,
@@ -30,8 +34,8 @@ h2,
 h3,
 h4,
 h5,
-h6 {
-  font-family: sans-serif !important;
+h6 {  
+  font-family: 'Philosopher'!important;
 }
 
 .top-margin{
