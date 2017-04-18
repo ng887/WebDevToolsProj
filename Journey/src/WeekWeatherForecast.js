@@ -21,7 +21,7 @@ const WeekWeatherForecast = ({
                 let i = 0;
                 if (date.getHours() === 5) {
                     WeekWeatherForecast.push(
-                    <div key={i++} className='text-center colLayout border marging padding brand-color3'>
+                    <div className='text-center colLayout border marging padding brand-color3'>
 		 			<span> {dateTxt} 5AM</span>
 	                <img src={"http://openweathermap.org/img/w/"+day.weather[0].icon+".png"}  alt="weather_icon" />  <br/>
 	                <b> {day.weather[0].description} </b> <br/>

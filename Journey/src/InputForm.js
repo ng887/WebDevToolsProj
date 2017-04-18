@@ -38,7 +38,7 @@ export default class InputForm extends Component {
         this.activateIternary = this.activateIternary.bind(this);
         this.activateFlight = this.activateFlight.bind(this);
         this.activateWeather = this.activateWeather.bind(this);
-        this.reset = this.reset.bind(this);
+       
     }
 
     componentDidMount() {
@@ -121,7 +121,7 @@ export default class InputForm extends Component {
 
     fetchFlightDetails() {
         const api_key = 'no883655154989405407520801242418';
-        const params = 'FR/eur/en-us/uk/us/anytime/anytime';
+       // const params = 'FR/eur/en-us/uk/us/anytime/anytime';
         const currency = 'usd';
         const locale = 'en-us';
         const originPlace = 'RDM';
@@ -199,9 +199,9 @@ export default class InputForm extends Component {
     }
     
     render() {
-        const iternaryButtonClass = this.state.showIternary ? "btn btn-lg btn-info j-button-span col-md-2" : "btn btn-lg btn-info j-button-span disabled col-md-2";
-        const flightButtonClass = this.state.showFlight ? "btn btn-lg btn-info col-md-2 j-button-span" : "btn btn-lg btn-info j-button-span disabled col-md-2";
-        const weatherButtonClass = this.state.showWeather ? "btn btn-lg btn-info col-md-2 j-button-span" : "btn btn-lg btn-info j-button-span col-md-2 disabled";
+        const iternaryButtonClass = this.state.showIternary ? "btn btn-lg btn-info j-button-span col-md-2 col-lg-2" : "btn btn-lg btn-info j-button-span disabled col-md-2";
+        const flightButtonClass = this.state.showFlight ? "btn btn-lg btn-info col-md-2  j-button-span" : "btn btn-lg btn-info j-button-span disabled col-md-2 col-lg-2";
+        const weatherButtonClass = this.state.showWeather ? "btn btn-lg btn-info col-md-2 j-button-span" : "btn btn-lg btn-info j-button-span col-md-2  col-lg-2 disabled";
         const noOfDays = this.state.noOfDays;
         const locationOnDay = this.state.locationOnDay;
         let currentLocations = [];
