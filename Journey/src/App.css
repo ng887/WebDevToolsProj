@@ -34,8 +34,6 @@ h6 {
   font-family: sans-serif !important;
 }
 
-/*"Philosopher", "Raleway"*/
-
 .top-margin{
   margin-top: 5%;
 }
@@ -82,12 +80,11 @@ h6 {
   width: 30%;
 }
 
-
 .desktopLayout {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-
+  justify-content: center;
 }
 
 .colLayout{
@@ -141,7 +138,8 @@ h6 {
   padding: 1%;
 }
 .brand-color{
-  background-color:  #ccfff2;
+  background-color:   teal;
+
 
 }
 

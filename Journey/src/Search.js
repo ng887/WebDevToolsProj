@@ -1,7 +1,3 @@
-/**
- * Created by neha on 4/9/2017.
- */
-
 import React from 'react';
 import './App.css';
 
@@ -12,5 +8,4 @@ const Search = () => {
         </div>
     )
 }
-
-    export default Search;
+export default Search;

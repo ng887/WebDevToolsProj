@@ -1,6 +1,3 @@
-/**
- * Created by khutaijashariff on 4/15/17.
- */
 import React, {Component} from 'react';
 
 export default class TripDay extends Component {
@@ -49,6 +46,5 @@ export default class TripDay extends Component {
                 </div>
             </div>
         );
-    }
-    
+    }    
 }

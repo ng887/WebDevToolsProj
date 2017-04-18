@@ -1,18 +1,16 @@
-/**
- * Created by khutaijashariff on 4/7/17.
- */
-
 import React, {Component} from 'react';
+import {Button} from 'react-bootstrap';
+
 import Search from './Search';
 import DateRange from './DateRange';
-import {Button} from 'react-bootstrap';
-import {calculateDays} from './Functions/CalculateDays';
 import Cards from './Cards';
 import DestinationWeather from './DestinationWeather';
 import TripDay from './TripDay';
+import TripTravelExpense from './TripTravelExpense';
+
 import {getLocationForDays} from './Functions/GetLocationsForDays';
 import {removeLocation} from './Functions/RemoveLocation';
-import TripTravelExpense from './TripTravelExpense';
+import {calculateDays} from './Functions/CalculateDays';
 
 
 export default class InputForm extends Component {
@@ -101,53 +99,39 @@ export default class InputForm extends Component {
         //console.log(url);
         fetch(url)
             .then((res) => {
-                //console.log(res);
-                return res.json();
-                // const data = this.state.weather;
-                // this.setState({ weather: data.concat([res.data])});
+                return res.json();               
             })
-            .then((json) => {
-                //console.log(json);
-                //console.log('City Name: '+ json.city.name);
-                //console.log(json.list[0]);
-                //console.log('Current Temp: '+ parseInt(json.list[0].main.temp - 273.15) + ' degree C');
-                //const currentTemp = parseInt(json.list[0].main.temp - 273.15);
+            .then((json) => {               
                 this.setState({
                     destinationWeather: json.list
                 });
-
+            })
+            .catch(function (error) {
+                console.log('Request failure: ', error);
             });
+
     }
 
     fetchFlightDetails() {
-        const api_key = 'no883655154989405407520801242418';
-       // const params = 'FR/eur/en-us/uk/us/anytime/anytime';
+        const api_key = 'no883655154989405407520801242418';      
         const currency = 'usd';
         const locale = 'en-us';
         const originPlace = 'RDM';
-        const destinationPlace = `${this.state.destination.latitude},${this.state.destination.longitude}-latlong`;
-        // console.log(destinationPlace);
-
-        // const root_url = `http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/${params}?apikey=${api_key}`;
+        const destinationPlace = `${this.state.destination.latitude},${this.state.destination.longitude}-latlong`;       
         const root_url = `http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/us/${currency}/${locale}/${originPlace}/${destinationPlace}/anytime/anytime?apikey=${api_key}`;
-        //browsedates/v1.0/{country}/{currency}/{locale}/{originPlace}/{destinationPlace}/{outboundPartialDate}/{inboundPartialDate}
-        // console.log(root_url);
-
+       
         fetch(root_url)
-            .then((res) => {
-                //console.log(res);
+            .then((res) => {               
                 return res.json();
             })
-            .then((json) => {
-                // console.log(json);
+            .then((json) => {                
                 this.setState({
                     tripTravelExpenses: json
                 });
 
             })
-
             .catch(function (error) {
-                // console.log('Request failure: ', error);
+                console.log('Request failure: ', error);
             });
 
     }
@@ -162,8 +146,7 @@ export default class InputForm extends Component {
 
     getCurrentClickedLocation(location) {
         this.setState({
-            currentAddedLocation: location,
-            //locationOnDay: [...this.state.locationOnDay, {day: this.state.currentActiveDay, location: location}]
+            currentAddedLocation: location,          
             locationOnDay: [...this.state.locationOnDay, {location: location, day: this.state.currentActiveDay}]
         })
     }
@@ -221,7 +204,6 @@ export default class InputForm extends Component {
 
         return (
             <div>
-
                 { this.state.page === 'InputForm' && <div>
                     <form className={'top-margin text-center'}>
                         <div className={'col-md-3 col-md-offset-2'}><Search /></div>
@@ -245,9 +227,9 @@ export default class InputForm extends Component {
                             <span onClick={this.activateWeather} className={weatherButtonClass}>Weather</span>
                         </div>
 
-                        { this.state.showIternary && <div>
-                            <h2 className='text-center'>PREPARE YOUR ITINERARY</h2>
-                            <div className='desktopLayout margin-left'>{tripDays}</div>
+                        { this.state.showIternary && <div className='margin'>
+                            <h2 className='text-center'>Prepare Your Itinerary</h2>
+                            <div className='desktopLayout'>{tripDays}</div>
                         </div> }
 
                         {  this.state.showFlight && <TripTravelExpense
@@ -257,12 +239,9 @@ export default class InputForm extends Component {
                             destination={this.state.destination}
                             destinationWeatherForecast={this.state.destinationWeather}
                             tripDates={this.state.tripDates}/> }
-
                     </div>
-
                 </div>
                 }
-
             </div>
         );
     }

@@ -1,7 +1,3 @@
-/**
- * Created by neha on 4/16/2017.
- */
-
 import React from 'react';
 import {getCarrierName} from './Functions/getCarriers'
 import {getCarrierPlaces} from './Functions/getCarrierPlaces'
@@ -20,7 +16,6 @@ const TripTravelExpense = ({
   
     if (tripTravelExpenses !== undefined && tripQuotes !== undefined) {
     	 const currency = tripTravelExpenses.Currencies[0].Symbol;
-
             for (let i = 0; i < tripQuotes.length; i++) {            	
                 if (tripQuotes[i].OutboundLeg.CarrierIds !== undefined) {
                     const carrierName = getCarrierName(tripQuotes[i].OutboundLeg.CarrierIds[0], carriers);
@@ -48,7 +43,7 @@ const TripTravelExpense = ({
 
     return (
         <div className='desktopLayout' style={{marginTop: 50}}>
-        	OutboundLeg
+        	<h2 className='margin text-center'> Outbound Leg Flight Details </h2>
 			<table className="table table-striped">
 				<thead>
 				<tr>
@@ -63,12 +58,9 @@ const TripTravelExpense = ({
 				{TripQuotes}
 				</tbody>
 			</table>
-        	
-      
         </div>
     )
 }
-
 export default TripTravelExpense;
 
 
