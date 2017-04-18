@@ -116,7 +116,7 @@ export default class InputForm extends Component {
         const api_key = 'no883655154989405407520801242418';      
         const currency = 'usd';
         const locale = 'en-us';
-        const originPlace = 'RDM';
+        const originPlace = 'SEA';
         const destinationPlace = `${this.state.destination.latitude},${this.state.destination.longitude}-latlong`;       
         const root_url = `http://partners.api.skyscanner.net/apiservices/browsedates/v1.0/us/${currency}/${locale}/${originPlace}/${destinationPlace}/anytime/anytime?apikey=${api_key}`;
        
@@ -201,7 +201,7 @@ export default class InputForm extends Component {
                                       activeDay={this.state.currentActiveDay}/>);
             tripDays.push(dayMarkup);
         }
-
+        console.log(this.state.locationOnDay);
         return (
             <div>
                 { this.state.page === 'InputForm' && <div>

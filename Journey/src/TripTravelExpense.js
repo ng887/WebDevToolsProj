@@ -12,7 +12,7 @@ const TripTravelExpense = ({
 
 
 	const TripQuotes = [];
-  
+
     if (tripTravelExpenses !== undefined && tripQuotes !== undefined) {
     	 const currency = tripTravelExpenses.Currencies[0].Symbol;
             for (let i = 0; i < tripQuotes.length; i++) {            	
@@ -33,15 +33,14 @@ const TripTravelExpense = ({
 
                     )
                 }
-
             }
         }
-   
+
 
     return (
         <div className='desktopLayout' style={{marginTop: 50}}>
-        	<h2 className='margin text-center'> Outbound Leg Flight Details </h2>
-			<table className="table table-striped">
+        	{TripQuotes.length !== 0 && <h2 className='margin text-center'> Outbound Leg Flight Details </h2>
+        	 && <table className="table table-striped">
 				<thead>
 				<tr>
 					<th> Date Time </th>
@@ -55,6 +54,8 @@ const TripTravelExpense = ({
 				{TripQuotes}
 				</tbody>
 			</table>
+			}
+			{TripQuotes.length === 0 && <h2> No Results Found!!! </h2>}
         </div>
     )
 }
