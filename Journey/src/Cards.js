@@ -15,7 +15,7 @@ export default class Cards extends Component  {
         for (let i = 0; i < pointsOfInterest.length-4; i+=4) {
             tempDiv.push(
                 <Carousel.Item>
-                  <h2 className='text-center'>PLACES OF INTEREST</h2> 
+                  <h2 className='text-center'>PLACES OF INTEREST NEAR {this.props.cityName.toUpperCase()}</h2> 
                 <div className='desktopLayout'>
                   <Card passLocation={this.handlePassLocation.bind(this)} pointOfInterest={pointsOfInterest[i]} i={i} key={i}/>
                   <Card passLocation={this.handlePassLocation.bind(this)} pointOfInterest={pointsOfInterest[i+1]} i={i+1} key={i+1}/>

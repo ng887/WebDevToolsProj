@@ -217,7 +217,8 @@ export default class InputForm extends Component {
                 <div>
 
                     <Cards getPassedLocation={this.getCurrentClickedLocation.bind(this)}
-                           pointsOfInterest={this.state.pointsOfInterest}/>
+                           pointsOfInterest={this.state.pointsOfInterest}
+                           cityName={this.state.destination.city}/>
 
                     <div className='colLayout'>
 
