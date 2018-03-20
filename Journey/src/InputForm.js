@@ -92,7 +92,7 @@ export default class InputForm extends Component {
 
 
     fetchWeatherDetails(city) {
-        const api_key = '6ab73f3655f1a0db55237e9f5b00bff9';
+        const api_key = '';
         const root_url = `http://api.openweathermap.org/data/2.5/forecast?appid=${api_key}`;
 
         const url = `${root_url}&q=${city},us`;
@@ -113,7 +113,7 @@ export default class InputForm extends Component {
     }
 
     fetchFlightDetails() {
-        const api_key = 'no883655154989405407520801242418';      
+        const api_key = '';      
         const currency = 'usd';
         const locale = 'en-us';
         const originPlace = 'SEA';
